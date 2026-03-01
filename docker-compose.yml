@@ -1,0 +1,48 @@
+services:
+
+  # ── HTTPS reverse proxy ─────────────────────────────────────────────────────
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"      # HTTP/3
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data        # TLS certificates (persisted)
+      - caddy_config:/config
+    networks:
+      - workshop
+    depends_on:
+      - spigot
+      - webscriptcraft
+
+  # ── Minecraft server + jsmn plugin ─────────────────────────────────────────
+  spigot:
+    build: ./spigot
+    restart: unless-stopped
+    ports:
+      - "25565:25565"       # Minecraft — exposed to the internet
+      # Port 25580 (script upload) is NOT exposed to the host;
+      # Caddy reaches it via the internal Docker network only.
+    volumes:
+      - minecraft_data:/server  # world data, plugin config, player scripts
+    networks:
+      - workshop
+
+  # ── Web IDE ─────────────────────────────────────────────────────────────────
+  webscriptcraft:
+    build: ./webscriptcraft
+    restart: unless-stopped
+    networks:
+      - workshop
+
+volumes:
+  minecraft_data:   # Spigot world, plugin data, scripts — persisted across restarts
+  caddy_data:       # Let's Encrypt certificates
+  caddy_config:     # Caddy runtime config
+
+networks:
+  workshop:
+    driver: bridge

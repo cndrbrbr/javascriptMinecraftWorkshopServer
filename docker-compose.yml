@@ -17,6 +17,7 @@ services:
     depends_on:
       - spigot
       - webscriptcraft
+      - homepage
 
   # ── Minecraft server + jsmn plugin ─────────────────────────────────────────
   spigot:
@@ -28,6 +29,13 @@ services:
       # Caddy reaches it via the internal Docker network only.
     volumes:
       - minecraft_data:/server  # world data, plugin config, player scripts
+    networks:
+      - workshop
+
+  # ── Workshop homepage (meckminecraft.de / www.meckminecraft.de) ─────────────
+  homepage:
+    build: ./homepage
+    restart: unless-stopped
     networks:
       - workshop
 

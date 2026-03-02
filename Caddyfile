@@ -1,6 +1,11 @@
 # JavaScript Minecraft Workshop Server — Caddy reverse proxy
 # Caddy automatically obtains and renews TLS certificates from Let's Encrypt.
 
+# Workshop homepage
+meckminecraft.de, www.meckminecraft.de {
+    reverse_proxy homepage:80
+}
+
 # Web IDE
 javascript.meckminecraft.de {
     reverse_proxy webscriptcraft:80

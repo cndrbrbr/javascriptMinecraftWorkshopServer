@@ -10,11 +10,14 @@ through Minecraft. One `docker compose up` starts everything.
 | **caddy** | HTTPS reverse proxy, auto-obtains TLS cert from Let's Encrypt |
 | **spigot** | PaperMC 1.21.1 with the [script4kids](https://github.com/cndrbrbr/script4kids) plugin |
 | **webscriptcraft** | [Web IDE](https://github.com/cndrbrbr/webscriptcraft) for writing and visualising scripts |
+| **homepage** | Workshop homepage served by nginx |
 
 URLs after deployment:
 
 | URL | Service |
 |---|---|
+| `https://meckminecraft.de` | Workshop homepage |
+| `https://www.meckminecraft.de` | Workshop homepage (www redirect) |
 | `https://javascript.meckminecraft.de` | Web IDE |
 | `https://upload.meckminecraft.de` | Script upload page |
 | `meckminecraft.de:25565` | Minecraft server |
@@ -123,6 +126,8 @@ accepting the file — no API key required for whitelisted workshop participants
 Point these at your server's IP address:
 
 ```
+meckminecraft.de             A   <server-ip>
+www.meckminecraft.de         A   <server-ip>
 javascript.meckminecraft.de  A   <server-ip>
 upload.meckminecraft.de      A   <server-ip>
 ```
@@ -144,4 +149,8 @@ spigot/
   eula.txt                  EULA acceptance
 webscriptcraft/
   Dockerfile                nginx serving the web IDE
+homepage/
+  Dockerfile                nginx serving the workshop homepage
+  html/
+    index.html              Homepage (edit this to customise content)
 ```

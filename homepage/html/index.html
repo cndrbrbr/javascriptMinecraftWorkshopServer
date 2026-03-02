@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meck Minecraft Workshop</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #4ade80;
+      text-shadow: 0 0 20px #4ade8066;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: #94a3b8;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 900px;
+    }
+    .card {
+      background: #16213e;
+      border: 1px solid #0f3460;
+      border-radius: 12px;
+      padding: 1.8rem;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: #4ade80; transform: translateY(-3px); }
+    .card h2 { font-size: 1.3rem; color: #4ade80; margin-bottom: 0.8rem; }
+    .card p  { color: #94a3b8; margin-bottom: 1.2rem; line-height: 1.5; }
+    .card a {
+      display: inline-block;
+      background: #4ade80;
+      color: #1a1a2e;
+      font-weight: bold;
+      padding: 0.6rem 1.4rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .card a:hover { background: #22c55e; }
+    .server-info {
+      margin-top: 3rem;
+      background: #16213e;
+      border: 1px solid #0f3460;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      max-width: 900px;
+      width: 100%;
+    }
+    .server-info h2 { color: #4ade80; margin-bottom: 1rem; }
+    .server-info table { width: 100%; border-collapse: collapse; }
+    .server-info td { padding: 0.5rem 0.8rem; border-bottom: 1px solid #0f3460; }
+    .server-info td:first-child { color: #94a3b8; width: 40%; }
+    code {
+      background: #0f3460;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    footer {
+      margin-top: 3rem;
+      color: #475569;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>&#x26CF; Meck Minecraft Workshop</h1>
+    <p>Programmieren lernen mit Minecraft und JavaScript</p>
+  </header>
+
+  <div class="cards">
+    <div class="card">
+      <h2>&#x1F4BB; Web-IDE</h2>
+      <p>Schreibe und visualisiere deine Skripte direkt im Browser &mdash; kein Editor nötig.</p>
+      <a href="https://javascript.meckminecraft.de" target="_blank">IDE öffnen</a>
+    </div>
+    <div class="card">
+      <h2>&#x1F4E4; Skript hochladen</h2>
+      <p>Lade deine fertige <code>.js</code>-Datei hoch und führe sie mit <code>/runscript</code> in Minecraft aus.</p>
+      <a href="https://upload.meckminecraft.de" target="_blank">Upload-Seite</a>
+    </div>
+    <div class="card">
+      <h2>&#x1F3AE; Minecraft-Server</h2>
+      <p>Verbinde dich mit dem Server und starte deine Skripte direkt in der Welt.</p>
+      <p style="margin-top:0.8rem"><code>meckminecraft.de</code></p>
+    </div>
+  </div>
+
+  <div class="server-info">
+    <h2>Nützliche Befehle</h2>
+    <table>
+      <tr><td>/runscript &lt;name&gt;</td><td>Skript ausführen</td></tr>
+      <tr><td>/savescript &lt;name&gt; &lt;code&gt;</td><td>Skript speichern</td></tr>
+      <tr><td>/myscripts</td><td>Eigene Skripte auflisten</td></tr>
+      <tr><td>/listscripts</td><td>Alle Skripte auflisten</td></tr>
+      <tr><td>/box MATERIAL B H T</td><td>Quader bauen</td></tr>
+      <tr><td>/sphere MATERIAL R</td><td>Kugel bauen</td></tr>
+    </table>
+  </div>
+
+  <footer>
+    <p>Powered by <a href="https://github.com/cndrbrbr/script4kids" style="color:#4ade80">script4kids</a>
+       &nbsp;&bull;&nbsp;
+       <a href="https://github.com/cndrbrbr/javascriptMinecraftWorkshopServer" style="color:#4ade80">GitHub</a>
+    </p>
+  </footer>
+
+</body>
+</html>

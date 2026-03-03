@@ -11,123 +11,253 @@
       background: #1a1a2e;
       color: #e0e0e0;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem 1rem;
     }
-    header {
+
+    /* ── Hero ─────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #0f3460 0%, #16213e 60%, #1a1a2e 100%);
+      border-bottom: 2px solid #4ade8033;
+      padding: 3rem 1rem 2.5rem;
       text-align: center;
-      margin-bottom: 3rem;
     }
-    h1 {
-      font-size: 2.5rem;
+    .hero img.logo {
+      width: 96px; height: 96px;
+      image-rendering: pixelated;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 16px #4ade8088);
+    }
+    .hero h1 {
+      font-size: 2.6rem;
       color: #4ade80;
-      text-shadow: 0 0 20px #4ade8066;
+      text-shadow: 0 0 24px #4ade8066;
       margin-bottom: 0.5rem;
     }
-    header p {
-      font-size: 1.1rem;
+    .hero p.tagline {
+      font-size: 1.15rem;
       color: #94a3b8;
+      max-width: 540px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
     }
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.6rem;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px #0006; }
+    .btn-primary { background: #4ade80; color: #1a1a2e; }
+    .btn-secondary { background: #1e40af; color: #e0e0e0; border: 1px solid #3b82f6; }
+
+    /* ── Main content ─────────────────────── */
+    main { max-width: 960px; margin: 0 auto; padding: 2.5rem 1rem 3rem; }
+
+    section { margin-bottom: 3rem; }
+    section h2 {
+      font-size: 1.5rem;
+      color: #4ade80;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #0f3460;
+    }
+    p { line-height: 1.7; color: #cbd5e1; margin-bottom: 0.9rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Cards ───────────────────────────── */
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 900px;
+      gap: 1.4rem;
     }
     .card {
       background: #16213e;
       border: 1px solid #0f3460;
       border-radius: 12px;
-      padding: 1.8rem;
+      padding: 1.6rem;
       text-align: center;
       transition: border-color 0.2s, transform 0.2s;
     }
     .card:hover { border-color: #4ade80; transform: translateY(-3px); }
-    .card h2 { font-size: 1.3rem; color: #4ade80; margin-bottom: 0.8rem; }
-    .card p  { color: #94a3b8; margin-bottom: 1.2rem; line-height: 1.5; }
+    .card h3 { font-size: 1.15rem; color: #4ade80; margin-bottom: 0.7rem; }
+    .card p  { font-size: 0.95rem; color: #94a3b8; margin-bottom: 1.1rem; }
     .card a {
       display: inline-block;
       background: #4ade80;
       color: #1a1a2e;
       font-weight: bold;
-      padding: 0.6rem 1.4rem;
+      padding: 0.5rem 1.2rem;
       border-radius: 6px;
       text-decoration: none;
+      font-size: 0.95rem;
       transition: background 0.2s;
     }
     .card a:hover { background: #22c55e; }
-    .server-info {
-      margin-top: 3rem;
-      background: #16213e;
+
+    /* ── Gallery ─────────────────────────── */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .gallery figure {
+      border-radius: 10px;
+      overflow: hidden;
       border: 1px solid #0f3460;
-      border-radius: 12px;
-      padding: 1.5rem 2rem;
-      max-width: 900px;
-      width: 100%;
+      background: #16213e;
     }
-    .server-info h2 { color: #4ade80; margin-bottom: 1rem; }
-    .server-info table { width: 100%; border-collapse: collapse; }
-    .server-info td { padding: 0.5rem 0.8rem; border-bottom: 1px solid #0f3460; }
-    .server-info td:first-child { color: #94a3b8; width: 40%; }
-    code {
-      background: #0f3460;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-family: monospace;
-    }
-    footer {
-      margin-top: 3rem;
-      color: #475569;
+    .gallery img { width: 100%; display: block; }
+    .gallery figcaption {
+      padding: 0.6rem 0.9rem;
       font-size: 0.85rem;
+      color: #94a3b8;
       text-align: center;
     }
+
+    /* ── Commands table ──────────────────── */
+    .cmd-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .cmd-table td { padding: 0.55rem 0.8rem; border-bottom: 1px solid #0f3460; }
+    .cmd-table td:first-child { color: #4ade80; font-family: monospace; white-space: nowrap; }
+    .cmd-table tr:last-child td { border-bottom: none; }
+
+    code {
+      background: #0f3460;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.9em;
+    }
+
+    /* ── Footer ──────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #475569;
+      font-size: 0.85rem;
+      border-top: 1px solid #0f3460;
+    }
+    footer a { color: #4ade80; text-decoration: none; }
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="logo.png" alt="Meck Minecraft Workshop Logo" style="width:96px;height:96px;image-rendering:pixelated;margin-bottom:1rem;">
+  <!-- ── Hero ──────────────────────────────────────────────────────── -->
+  <div class="hero">
+    <img class="logo" src="logo.png" alt="Logo">
     <h1>Meck Minecraft Workshop</h1>
-    <p>Programmieren lernen mit Minecraft und JavaScript</p>
-  </header>
-
-  <div class="cards">
-    <div class="card">
-      <h2>&#x1F4BB; Web-IDE</h2>
-      <p>Schreibe und visualisiere deine Skripte direkt im Browser &mdash; kein Editor nötig.</p>
-      <a href="https://javascript.meckminecraft.de" target="_blank">IDE öffnen</a>
-    </div>
-    <div class="card">
-      <h2>&#x1F4E4; Skript hochladen</h2>
-      <p>Lade deine fertige <code>.js</code>-Datei hoch und führe sie mit <code>/runscript</code> in Minecraft aus.</p>
-      <a href="https://upload.meckminecraft.de" target="_blank">Upload-Seite</a>
-    </div>
-    <div class="card">
-      <h2>&#x1F3AE; Minecraft-Server</h2>
-      <p>Verbinde dich mit dem Server und starte deine Skripte direkt in der Welt.</p>
-      <p style="margin-top:0.8rem"><code>meckminecraft.de</code></p>
+    <p class="tagline">
+      Programmieren lernen mit Minecraft und JavaScript &mdash;
+      baut Strukturen per Code, direkt im Spiel.
+    </p>
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="https://javascript.meckminecraft.de" target="_blank">Web-IDE öffnen</a>
+      <a class="btn btn-secondary" href="https://upload.meckminecraft.de" target="_blank">Skript hochladen</a>
     </div>
   </div>
 
-  <div class="server-info">
-    <h2>Nützliche Befehle</h2>
-    <table>
-      <tr><td>/runscript &lt;name&gt;</td><td>Skript ausführen</td></tr>
-      <tr><td>/savescript &lt;name&gt; &lt;code&gt;</td><td>Skript speichern</td></tr>
-      <tr><td>/myscripts</td><td>Eigene Skripte auflisten</td></tr>
-      <tr><td>/listscripts</td><td>Alle Skripte auflisten</td></tr>
-      <tr><td>/box MATERIAL B H T</td><td>Quader bauen</td></tr>
-      <tr><td>/sphere MATERIAL R</td><td>Kugel bauen</td></tr>
-    </table>
-  </div>
+  <main>
+
+    <!-- ── Was ist das hier? ─────────────────────────────────────── -->
+    <section>
+      <h2>Was ist Minecraft?</h2>
+      <p>
+        Minecraft ist kein klassisches Spiel, dem man einem bestimmten Ablauf folgen oder
+        ein bestimmtes Ziel erreichen muss. Das Spiel basiert auf einer Block-Welt &mdash;
+        sozusagen Lego-Online &mdash; und bietet unter anderem den <strong>Kreativmodus</strong>,
+        in dem man unbegrenzt bauen kann, sowie den <strong>Überlebensmodus</strong>, in dem
+        Ressourcen abgebaut und verarbeitet werden müssen.
+      </p>
+      <p>
+        Im Spiel ist eine Programmierlogik (Redstone) verankert, die jeder benutzen kann.
+        Darüber hinaus lassen sich Erweiterungen in Java und JavaScript selbst programmieren &mdash;
+        genau das machen wir in unseren Workshops.
+      </p>
+    </section>
+
+    <!-- ── Warum im Workshop? ─────────────────────────────────────── -->
+    <section>
+      <h2>Warum Minecraft im Workshop?</h2>
+      <p><strong>Erstens: Es macht Spaß.</strong></p>
+      <p>
+        Das Spiel lässt sich schnell erlernen und ist vielen Schülerinnen und Schülern vertraut.
+        Viele kennen Themen der Informatik bereits aus der Praxis &mdash; oft müssen nur noch
+        die Fachbegriffe dazu gelernt werden.
+      </p>
+      <p>
+        Im Workshop schreibt ihr JavaScript-Code, der Strukturen direkt in der Minecraft-Welt baut:
+        Häuser, Türme, Labyrinthe, Kugeln und mehr. Ihr seht das Ergebnis eures Codes sofort &mdash;
+        das motiviert und macht das Lernen greifbar.
+      </p>
+    </section>
+
+    <!-- ── Gallery ────────────────────────────────────────────────── -->
+    <section>
+      <h2>Was man damit bauen kann</h2>
+      <div class="gallery">
+        <figure>
+          <img src="skyscraper.png" alt="Hochhaus gebaut mit JavaScript">
+          <figcaption>Hochhaus &mdash; gebaut mit einem JavaScript-Skript</figcaption>
+        </figure>
+        <figure>
+          <img src="mazeex1.png" alt="Labyrinth gebaut mit /maze">
+          <figcaption>Labyrinth &mdash; erzeugt mit <code>/maze</code></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ── Links ─────────────────────────────────────────────────── -->
+    <section>
+      <h2>Workshop-Tools</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>&#x1F4BB; Web-IDE</h3>
+          <p>Schreibe und visualisiere deine Skripte direkt im Browser &mdash; kein Editor nötig.</p>
+          <a href="https://javascript.meckminecraft.de" target="_blank">IDE öffnen</a>
+        </div>
+        <div class="card">
+          <h3>&#x1F4E4; Skript hochladen</h3>
+          <p>Wähle deine <code>.js</code>-Datei aus und lade sie direkt auf den Server hoch.</p>
+          <a href="https://upload.meckminecraft.de" target="_blank">Upload-Seite</a>
+        </div>
+        <div class="card">
+          <h3>&#x1F3AE; Minecraft-Server</h3>
+          <p>Verbinde dich und starte deine Skripte in der Welt.</p>
+          <p style="margin-top:0.6rem"><code>meckminecraft.de</code></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Commands ──────────────────────────────────────────────── -->
+    <section>
+      <h2>Wichtige Befehle</h2>
+      <table class="cmd-table">
+        <tr><td>/runscript &lt;name&gt;</td><td>Skript ausführen</td></tr>
+        <tr><td>/savescript &lt;name&gt; &lt;code&gt;</td><td>Skript speichern</td></tr>
+        <tr><td>/myscripts</td><td>Eigene Skripte auflisten</td></tr>
+        <tr><td>/listscripts</td><td>Alle Skripte auflisten</td></tr>
+        <tr><td>/box MATERIAL B H T</td><td>Quader bauen</td></tr>
+        <tr><td>/box0 MATERIAL B H T</td><td>Quader (hohl) bauen</td></tr>
+        <tr><td>/sphere MATERIAL R</td><td>Vollkugel bauen</td></tr>
+        <tr><td>/sphere0 MATERIAL R</td><td>Hohlkugel bauen</td></tr>
+        <tr><td>/maze B T</td><td>Labyrinth bauen</td></tr>
+        <tr><td>/rainbow R</td><td>Regenbogen bauen</td></tr>
+        <tr><td>/castle B H T</td><td>Burg bauen</td></tr>
+      </table>
+    </section>
+
+  </main>
 
   <footer>
-    <p>Powered by <a href="https://github.com/cndrbrbr/script4kids" style="color:#4ade80">script4kids</a>
-       &nbsp;&bull;&nbsp;
-       <a href="https://github.com/cndrbrbr/javascriptMinecraftWorkshopServer" style="color:#4ade80">GitHub</a>
+    <p>
+      Powered by
+      <a href="https://github.com/cndrbrbr/script4kids">script4kids</a>
+      &nbsp;&bull;&nbsp;
+      <a href="https://github.com/cndrbrbr/webscriptcraft">webscriptcraft</a>
+      &nbsp;&bull;&nbsp;
+      <a href="https://github.com/cndrbrbr/javascriptMinecraftWorkshopServer">GitHub</a>
     </p>
   </footer>
 

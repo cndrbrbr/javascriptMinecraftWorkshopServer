@@ -153,8 +153,8 @@
       baut Strukturen per Code, direkt im Spiel.
     </p>
     <div class="hero-buttons">
-      <a class="btn btn-primary" href="https://javascript.meckminecraft.de" target="_blank">Web-IDE öffnen</a>
-      <a class="btn btn-secondary" href="https://upload.meckminecraft.de" target="_blank">Skript hochladen</a>
+      <a class="btn btn-primary" data-service="ide" href="#" target="_blank">Web-IDE öffnen</a>
+      <a class="btn btn-secondary" data-service="upload" href="#" target="_blank">Skript hochladen</a>
     </div>
   </div>
 
@@ -215,12 +215,12 @@
         <div class="card">
           <h3>&#x1F4BB; Web-IDE</h3>
           <p>Schreibe und visualisiere deine Skripte direkt im Browser &mdash; kein Editor nötig.</p>
-          <a href="https://javascript.meckminecraft.de" target="_blank">IDE öffnen</a>
+          <a data-service="ide" href="#" target="_blank">IDE öffnen</a>
         </div>
         <div class="card">
           <h3>&#x1F4E4; Skript hochladen</h3>
           <p>Wähle deine <code>.js</code>-Datei aus und lade sie direkt auf den Server hoch.</p>
-          <a href="https://upload.meckminecraft.de" target="_blank">Upload-Seite</a>
+          <a data-service="upload" href="#" target="_blank">Upload-Seite</a>
         </div>
         <div class="card">
           <h3>&#x1F3AE; Minecraft-Server</h3>
@@ -282,9 +282,9 @@
       var uploadUrl = isProd ? 'https://upload.meckminecraft.de'     : 'http://' + host + ':8082';
       var mcAddress = isProd ? 'meckminecraft.de'                    : host;
 
-      document.querySelectorAll('a[href="https://javascript.meckminecraft.de"]')
+      document.querySelectorAll('[data-service="ide"]')
         .forEach(function (a) { a.href = ideUrl; });
-      document.querySelectorAll('a[href="https://upload.meckminecraft.de"]')
+      document.querySelectorAll('[data-service="upload"]')
         .forEach(function (a) { a.href = uploadUrl; });
       document.querySelectorAll('code').forEach(function (c) {
         if (c.textContent.trim() === 'meckminecraft.de') c.textContent = mcAddress;

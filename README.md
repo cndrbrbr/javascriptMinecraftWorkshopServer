@@ -7,7 +7,7 @@ Ein vollständiger, selbst enthaltener Server-Stack zum Lehren von JavaScript-Pr
 | Container | Aufgabe |
 |---|---|
 | **caddy** | HTTPS-Reverse-Proxy, holt TLS-Zertifikat automatisch von Let's Encrypt |
-| **spigot** | Spigot 1.21.1 mit dem [script4kids](https://github.com/cndrbrbr/script4kids)-Plugin |
+| **spigot** | Spigot 1.21.11 mit dem [script4kids](https://github.com/cndrbrbr/script4kids)-Plugin |
 | **webscriptcraft** | [Web-IDE](https://github.com/cndrbrbr/webscriptcraft) zum Schreiben und Visualisieren von Skripten |
 | **homepage** | Workshop-Homepage, ausgeliefert per nginx |
 
@@ -15,23 +15,37 @@ Ein vollständiger, selbst enthaltener Server-Stack zum Lehren von JavaScript-Pr
 
 ## Lokal testen
 
-Kein Domain-Name, kein TLS nötig. Die Datei `docker-compose.override.yml` ist bereits im Repo enthalten und wird von Docker automatisch mitgeladen.
+Kein Domain-Name, kein TLS nötig. `docker-compose.override.yml` wird von Docker automatisch mitgeladen und deaktiviert Caddy.
+
+### 1. `.env` anlegen
 
 ```bash
 git clone https://github.com/cndrbrbr/javascriptMinecraftWorkshopServer
 cd javascriptMinecraftWorkshopServer
 
-docker compose up --build
+cp .env.example .env
+# .env öffnen und HOST_IP auf die lokale IP des Rechners setzen:
+# HOST_IP=192.168.1.49
+```
+
+### 2. Starten
+
+```bash
+sudo docker compose up --build
 ```
 
 Beim **ersten Start** baut Spigot sich selbst via BuildTools (~5–10 Min). Danach liegt der JAR auf dem Volume und der Start dauert nur Sekunden.
 
 | Adresse | Service |
 |---|---|
-| http://localhost:8080 | Workshop-Homepage |
-| http://localhost:8081 | Web-IDE |
-| http://localhost:8082 | Script-Upload |
-| localhost:25565 | Minecraft-Server |
+| http://HOST_IP:8080 | Workshop-Homepage |
+| http://HOST_IP:8081 | Web-IDE |
+| http://HOST_IP:8082 | Script-Upload |
+| HOST_IP:25565 | Minecraft-Server |
+
+Die Homepage-Links zeigen automatisch auf die richtige IP — gesetzt durch `HOST_IP` in der `.env`.
+
+> **Hinweis:** Für den Upload muss der Minecraft-Client mit `HOST_IP:25565` verbunden sein, nicht mit einer anderen Server-Adresse.
 
 ---
 
@@ -65,12 +79,17 @@ gh repo clone cndrbrbr/javascriptMinecraftWorkshopServer
 cd javascriptMinecraftWorkshopServer
 ```
 
-In `docker-compose.yml` die Domain anpassen (einmalig, eine Zeile):
+Bei Bedarf Domain in `docker-compose.yml` anpassen (Standard: `meckminecraft.de`):
 
 ```yaml
 caddy:
   environment:
-    SERVER_DOMAIN: meckminecraft.de   # ← hier eigene Domain eintragen
+    SERVER_DOMAIN: meckminecraft.de
+homepage:
+  environment:
+    IDE_URL: https://javascript.meckminecraft.de
+    UPLOAD_URL: https://upload.meckminecraft.de
+    MC_ADDRESS: meckminecraft.de
 ```
 
 Dann starten:
@@ -92,11 +111,14 @@ Caddy übernimmt TLS automatisch, sobald die DNS-Einträge aufgelöst sind.
 
 ## Serverkonfiguration
 
-Wichtige Einstellungen können in `docker-compose.yml` unter `environment` geändert werden, ohne das Image neu zu bauen:
+Alle Einstellungen in `docker-compose.yml` unter `environment` — kein Image-Rebuild nötig:
 
 | Variable | Standard | Bedeutung |
 |---|---|---|
-| `SERVER_DOMAIN` | `meckminecraft.de` | Domain für Caddy (Homepage, Web-IDE, Upload) |
+| `SERVER_DOMAIN` | `meckminecraft.de` | Domain für Caddy (TLS) |
+| `IDE_URL` | `https://javascript.meckminecraft.de` | Link zur Web-IDE auf der Homepage |
+| `UPLOAD_URL` | `https://upload.meckminecraft.de` | Link zur Upload-Seite auf der Homepage |
+| `MC_ADDRESS` | `meckminecraft.de` | Minecraft-Serveradresse auf der Homepage |
 | `MC_LEVELNAME` | `world` | Name der Welt |
 | `MC_MAXPLAYERS` | `30` | Maximale Spielerzahl |
 | `MC_PORT` | `25565` | Minecraft-Port |
@@ -104,27 +126,19 @@ Wichtige Einstellungen können in `docker-compose.yml` unter `environment` geän
 | `MC_MEM_MAX` | `2G` | Maximaler RAM |
 | `FORCE_BUILD` | `false` | `true` → Spigot neu bauen, auch wenn JAR schon auf Volume liegt |
 
-Spigot startet bei einem Absturz automatisch neu. Bei `/stop` im Server-Console stoppt er sauber ohne Neustart.
+Spigot startet bei einem Absturz automatisch neu. Bei `/stop` in der Server-Console stoppt er sauber ohne Neustart.
 
 ---
 
 ## Whitelist
 
-Der Server läuft mit `white-list=true`. Spieler vor dem Workshop hinzufügen:
-
-```bash
-# Serverkonsole öffnen
-docker compose exec spigot bash
-# Im Container:
-cd /server
-# whitelist.json bearbeiten, dann Server neu starten
-```
-
-Oder direkt per Befehl:
+Der Server läuft mit `white-list=true`. `cndrbrbr` ist standardmäßig eingetragen. Weitere Spieler vor dem Workshop hinzufügen:
 
 ```bash
 docker compose exec spigot bash -c 'echo "whitelist add Steve" >> /proc/1/fd/0'
 ```
+
+Oder `spigot/whitelist.json` im Repo bearbeiten und den Container neu starten (nur auf leerem Volume wirksam).
 
 ---
 
@@ -133,15 +147,19 @@ docker compose exec spigot bash -c 'echo "whitelist add Steve" >> /proc/1/fd/0'
 ### Plugin (script4kids) aktualisieren
 
 ```bash
-docker compose build spigot
-docker compose up -d spigot
+sudo docker compose build spigot && sudo docker compose up -d spigot
 ```
 
 ### Web-IDE aktualisieren
 
 ```bash
-docker compose build webscriptcraft
-docker compose up -d webscriptcraft
+sudo docker compose build webscriptcraft && sudo docker compose up -d webscriptcraft
+```
+
+### Homepage aktualisieren
+
+```bash
+sudo docker compose build homepage && sudo docker compose up -d homepage
 ```
 
 Weltdaten und Spielerskripte liegen im `minecraft_data`-Volume und werden von Rebuilds nicht berührt.
@@ -150,39 +168,42 @@ Weltdaten und Spielerskripte liegen im `minecraft_data`-Volume und werden von Re
 
 ## Workshop-Ablauf (für Teilnehmer)
 
-1. Stack starten: `docker compose up -d`
-2. Alle Geräte mit dem Internet verbinden.
-3. Minecraft-Server beitreten: `meckminecraft.de` (oder `localhost` beim lokalen Test).
-4. Web-IDE im Browser öffnen.
-5. Script-Upload öffnen: Minecraft-Benutzernamen eingeben, `.js`-Datei auswählen, hochladen.
-6. In Minecraft ausführen: `/runscript <name>`
-7. Alle Skripte anzeigen: `/listscripts`
+1. Stack starten: `sudo docker compose up -d`
+2. Minecraft-Server beitreten (Adresse von der Homepage ablesen).
+3. Web-IDE im Browser öffnen.
+4. Script-Upload öffnen: Minecraft-Benutzernamen eingeben, `.js`-Datei auswählen, hochladen.
+5. In Minecraft ausführen: `/runscript <name>`
+6. Alle Skripte anzeigen: `/listscripts`
 
-Die Upload-Seite prüft, ob der Spieler gerade eingeloggt ist — kein API-Key nötig für Teilnehmer auf der Whitelist.
+Die Upload-Seite prüft, ob der Spieler gerade eingeloggt ist — kein API-Key nötig.
 
 ---
 
 ## Projektstruktur
 
 ```
-docker-compose.yml              Orchestration (Produktion + Lokal)
-docker-compose.override.yml     Lokaler Test: kein Caddy, direkte Ports
-Caddyfile                       HTTPS-Proxy-Konfiguration (meckminecraft.de)
+.env.example                    Vorlage für lokale Konfiguration (HOST_IP)
+.env                            Lokale Konfiguration — nicht im Repo
+docker-compose.yml              Orchestration (Produktion)
+docker-compose.override.yml     Lokaler Test: kein Caddy, direkte Ports, HOST_IP
+Caddyfile                       HTTPS-Proxy-Konfiguration
 setup-debian.sh                 OS-Setup für neuen Debian-Server
 spigot/
   Dockerfile                    Plugin-Build (Maven) + Runtime-Image (JDK + BuildTools)
   entrypoint.sh                 Start: Spigot bauen (1. Start), Crash-Restart-Loop
-  watch_copy.sh                 Hilfsskript: Datei per inotify auf Volume synchronisieren
-  server.properties             Minecraft-Serverkonfiguration
+  watch_copy.sh                 Hilfsskript: Config-Datei per inotify auf Volume syncen
+  server.properties             Minecraft-Serverkonfiguration (beim 1. Start auf Volume kopiert)
+  whitelist.json                Whitelist (beim 1. Start auf Volume kopiert)
   eula.txt                      EULA-Akzeptanz
-spigot/data/ (Volume)
-  cfg/                          server.properties, bukkit.yml, spigot.yml, ...
-  plugins/                      Plugin-JARs und Plugin-Daten
-  worlds/                       Weltdaten
+spigot/ (Volume: minecraft_data)
+  spigot-1.21.11.jar            Beim ersten Start via BuildTools gebaut
+  data/cfg/                     server.properties, bukkit.yml, spigot.yml, ...
+  data/plugins/                 Plugin-JARs und Plugin-Daten
+  data/worlds/                  Weltdaten
 webscriptcraft/
-  Dockerfile                    nginx mit Web-IDE (webscriptcraft)
+  Dockerfile                    nginx mit Web-IDE
 homepage/
   Dockerfile                    nginx mit Workshop-Homepage
-  html/
-    index.html                  Homepage (hier Inhalte anpassen)
+  entrypoint.sh                 Setzt Links per envsubst beim Container-Start
+  html/index.html               Homepage-Inhalt
 ```

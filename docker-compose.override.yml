@@ -19,6 +19,10 @@ services:
   homepage:
     ports:
       - "8080:80"
+    environment:
+      IDE_URL: http://localhost:8081
+      UPLOAD_URL: http://localhost:8082
+      MC_ADDRESS: localhost
 
   webscriptcraft:
     ports:

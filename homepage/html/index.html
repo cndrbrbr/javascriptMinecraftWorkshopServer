@@ -153,8 +153,8 @@
       baut Strukturen per Code, direkt im Spiel.
     </p>
     <div class="hero-buttons">
-      <a class="btn btn-primary" data-service="ide" href="#" target="_blank">Web-IDE öffnen</a>
-      <a class="btn btn-secondary" data-service="upload" href="#" target="_blank">Skript hochladen</a>
+      <a class="btn btn-primary" href="${IDE_URL}" target="_blank">Web-IDE öffnen</a>
+      <a class="btn btn-secondary" href="${UPLOAD_URL}" target="_blank">Skript hochladen</a>
     </div>
   </div>
 
@@ -215,17 +215,17 @@
         <div class="card">
           <h3>&#x1F4BB; Web-IDE</h3>
           <p>Schreibe und visualisiere deine Skripte direkt im Browser &mdash; kein Editor nötig.</p>
-          <a data-service="ide" href="#" target="_blank">IDE öffnen</a>
+          <a href="${IDE_URL}" target="_blank">IDE öffnen</a>
         </div>
         <div class="card">
           <h3>&#x1F4E4; Skript hochladen</h3>
           <p>Wähle deine <code>.js</code>-Datei aus und lade sie direkt auf den Server hoch.</p>
-          <a data-service="upload" href="#" target="_blank">Upload-Seite</a>
+          <a href="${UPLOAD_URL}" target="_blank">Upload-Seite</a>
         </div>
         <div class="card">
           <h3>&#x1F3AE; Minecraft-Server</h3>
           <p>Verbinde dich und starte deine Skripte in der Welt.</p>
-          <p style="margin-top:0.6rem"><code>meckminecraft.de</code></p>
+          <p style="margin-top:0.6rem"><code>${MC_ADDRESS}</code></p>
         </div>
       </div>
     </section>
@@ -237,7 +237,7 @@
         <p style="font-size:1.05rem;">
           <strong style="color:#4ade80;">Jeden Freitag, 13:00 Uhr</strong><br>
           Minecraft JavaScript Workshop<br>
-          <span style="color:#94a3b8;">Server: <code>meckminecraft.de</code></span>
+          <span style="color:#94a3b8;">Server: <code>${MC_ADDRESS}</code></span>
         </p>
       </div>
     </section>
@@ -272,25 +272,6 @@
       <a href="https://github.com/cndrbrbr/javascriptMinecraftWorkshopServer">GitHub</a>
     </p>
   </footer>
-
-  <script>
-    (function () {
-      var host = window.location.hostname;
-      var isProd = host === 'meckminecraft.de' || host === 'www.meckminecraft.de';
-
-      var ideUrl    = isProd ? 'https://javascript.meckminecraft.de' : 'http://' + host + ':8081';
-      var uploadUrl = isProd ? 'https://upload.meckminecraft.de'     : 'http://' + host + ':8082';
-      var mcAddress = isProd ? 'meckminecraft.de'                    : host;
-
-      document.querySelectorAll('[data-service="ide"]')
-        .forEach(function (a) { a.href = ideUrl; });
-      document.querySelectorAll('[data-service="upload"]')
-        .forEach(function (a) { a.href = uploadUrl; });
-      document.querySelectorAll('code').forEach(function (c) {
-        if (c.textContent.trim() === 'meckminecraft.de') c.textContent = mcAddress;
-      });
-    })();
-  </script>
 
 </body>
 </html>

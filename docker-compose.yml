@@ -45,6 +45,10 @@ services:
   homepage:
     build: ./homepage
     restart: unless-stopped
+    environment:
+      IDE_URL: https://javascript.meckminecraft.de
+      UPLOAD_URL: https://upload.meckminecraft.de
+      MC_ADDRESS: meckminecraft.de
     networks:
       - workshop
 

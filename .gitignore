@@ -1,3 +1,6 @@
+# Local environment (machine-specific, not committed)
+.env
+
 # Compiled class file
 *.class
 

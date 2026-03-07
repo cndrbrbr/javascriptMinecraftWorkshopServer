@@ -11,7 +11,7 @@
 # ============================================================
 
 # ── Stage 1: Build plugin ───────────────────────────────────
-FROM eclipse-temurin:21-jdk-bookworm AS plugin-builder
+FROM openjdk:21-jdk-bookworm AS plugin-builder
 
 RUN apt-get update && apt-get install -y git maven && rm -rf /var/lib/apt/lists/*
 
@@ -21,7 +21,7 @@ RUN mvn clean package -DskipTests -q
 
 # ── Stage 2: Runtime ────────────────────────────────────────
 # JDK needed to run BuildTools (compiles Spigot on first start)
-FROM eclipse-temurin:21-jdk-bookworm
+FROM openjdk:21-jdk-bookworm
 
 RUN apt-get update && apt-get install -y git curl inotify-tools && rm -rf /var/lib/apt/lists/*
 

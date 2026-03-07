@@ -11,9 +11,9 @@
 # ============================================================
 
 # ── Stage 1: Build plugin ───────────────────────────────────
-FROM maven:3.9-eclipse-temurin-21 AS plugin-builder
+FROM eclipse-temurin:21-jdk-bookworm AS plugin-builder
 
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git maven && rm -rf /var/lib/apt/lists/*
 
 RUN git clone --depth=1 https://github.com/cndrbrbr/script4kids.git /build
 WORKDIR /build
@@ -21,7 +21,7 @@ RUN mvn clean package -DskipTests -q
 
 # ── Stage 2: Runtime ────────────────────────────────────────
 # JDK needed to run BuildTools (compiles Spigot on first start)
-FROM eclipse-temurin:21-jdk-jammy
+FROM eclipse-temurin:21-jdk-bookworm
 
 RUN apt-get update && apt-get install -y git curl inotify-tools && rm -rf /var/lib/apt/lists/*
 

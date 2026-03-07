@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-SPIGOT_VERSION=1.21.1
+SPIGOT_VERSION=1.21.11
 SPIGOT_JAR="/server/spigot-${SPIGOT_VERSION}.jar"
 
 # ── Build Spigot if not on volume ────────────────────────────

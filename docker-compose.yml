@@ -8,6 +8,8 @@ services:
       - "80:80"
       - "443:443"
       - "443:443/udp"      # HTTP/3
+    environment:
+      SERVER_DOMAIN: meckminecraft.de
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data        # TLS certificates (persisted)
@@ -27,6 +29,13 @@ services:
       - "25565:25565"       # Minecraft — exposed to the internet
       # Port 25580 (script upload) is NOT exposed to the host;
       # Caddy reaches it via the internal Docker network only.
+    environment:
+      MC_LEVELNAME: world
+      MC_MAXPLAYERS: "30"
+      MC_PORT: "25565"
+      MC_MEM_MIN: "512M"
+      MC_MEM_MAX: "2G"
+      FORCE_BUILD: "false"
     volumes:
       - minecraft_data:/server  # world data, plugin config, player scripts
     networks:

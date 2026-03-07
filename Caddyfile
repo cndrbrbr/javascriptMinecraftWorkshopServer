@@ -1,17 +1,18 @@
 # JavaScript Minecraft Workshop Server — Caddy reverse proxy
 # Caddy automatically obtains and renews TLS certificates from Let's Encrypt.
+# Die Domain wird per Umgebungsvariable SERVER_DOMAIN gesetzt (siehe docker-compose.yml).
 
 # Workshop homepage
-meckminecraft.de, www.meckminecraft.de {
+{$SERVER_DOMAIN}, www.{$SERVER_DOMAIN} {
     reverse_proxy homepage:80
 }
 
 # Web IDE
-javascript.meckminecraft.de {
+javascript.{$SERVER_DOMAIN} {
     reverse_proxy webscriptcraft:80
 }
 
 # Script upload page (served by the jsmn plugin)
-upload.meckminecraft.de {
+upload.{$SERVER_DOMAIN} {
     reverse_proxy spigot:25580
 }

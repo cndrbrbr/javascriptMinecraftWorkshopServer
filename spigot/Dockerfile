@@ -2,8 +2,12 @@
 # Spigot container — multi-stage build
 #
 # Stage 1: Build the script4kids plugin from source
-# Stage 2: Download PaperMC
-# Stage 3: Runtime image
+# Stage 2: Runtime image
+#
+# Spigot itself is NOT built during image build.
+# The entrypoint builds it on first start (via BuildTools)
+# and caches the JAR on the persistent volume.
+# Set FORCE_BUILD=true to rebuild even if JAR already exists.
 # ============================================================
 
 # ── Stage 1: Build plugin ───────────────────────────────────
@@ -15,34 +19,29 @@ RUN git clone --depth=1 https://github.com/cndrbrbr/script4kids.git /build
 WORKDIR /build
 RUN mvn clean package -DskipTests -q
 
-# ── Stage 2: Download PaperMC ───────────────────────────────
-FROM eclipse-temurin:21-jre-jammy AS paper-downloader
+# ── Stage 2: Runtime ────────────────────────────────────────
+# JDK needed to run BuildTools (compiles Spigot on first start)
+FROM eclipse-temurin:21-jdk-jammy
 
-ARG MINECRAFT_VERSION=1.21.1
+RUN apt-get update && apt-get install -y git curl inotify-tools && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y curl jq && rm -rf /var/lib/apt/lists/* && \
-    BUILD=$(curl -fsSL "https://api.papermc.io/v2/projects/paper/versions/${MINECRAFT_VERSION}/builds" \
-        | jq -r '.builds[-1].build') && \
-    curl -fsSL -o /paper.jar \
-        "https://api.papermc.io/v2/projects/paper/versions/${MINECRAFT_VERSION}/builds/${BUILD}/downloads/paper-${MINECRAFT_VERSION}-${BUILD}.jar"
-
-# ── Stage 3: Runtime ────────────────────────────────────────
-FROM eclipse-temurin:21-jre-jammy
+# Pre-download BuildTools so the container doesn't need internet at startup
+RUN mkdir -p /buildtools && \
+    curl -fsSL -o /buildtools/BuildTools.jar \
+        https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 
 WORKDIR /server-base
-
-# Server JAR
-COPY --from=paper-downloader /paper.jar ./paper.jar
 
 # Plugin JAR
 COPY --from=plugin-builder /build/target/jsmn-1.0-SNAPSHOT.jar plugins/
 
 # Server config
-COPY eula.txt server.properties ./
+COPY eula.txt server.properties server-icon.png ./
 
-# Startup script
+# Startup script + watch_copy utility
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY watch_copy.sh /watch_copy.sh
+RUN chmod +x /entrypoint.sh /watch_copy.sh
 
 WORKDIR /server
 

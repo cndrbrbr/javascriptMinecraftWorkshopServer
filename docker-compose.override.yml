@@ -1,0 +1,29 @@
+# Lokaler Test — kein Caddy, kein TLS, Services direkt auf Host-Ports
+#
+# Verwendung:
+#   docker compose up          <- nutzt automatisch diese Datei
+#
+# Erreichbar unter:
+#   http://localhost:8080      <- Homepage
+#   http://localhost:8081      <- Web-IDE (webscriptcraft)
+#   http://localhost:8082      <- Script-Upload (jsmn plugin)
+#   localhost:25565            <- Minecraft Server
+
+services:
+
+  # Caddy nicht starten — kein TLS benötigt lokal
+  caddy:
+    profiles:
+      - production
+
+  homepage:
+    ports:
+      - "8080:80"
+
+  webscriptcraft:
+    ports:
+      - "8081:80"
+
+  spigot:
+    ports:
+      - "8082:25580"   # Script-Upload, lokal erreichbar

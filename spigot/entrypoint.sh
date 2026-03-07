@@ -36,15 +36,11 @@ while true; do
     java \
         -Xms${MC_MEM_MIN:-512M} \
         -Xmx${MC_MEM_MAX:-2G} \
-        -XX:+UnlockExperimentalVMOptions \
-        -XX:+EnableJVMCI \
         --add-opens=java.base/java.lang=ALL-UNNAMED \
         --add-opens=java.base/java.lang.invoke=ALL-UNNAMED \
         --add-opens=java.base/java.lang.ref=ALL-UNNAMED \
         --add-opens=java.base/java.nio=ALL-UNNAMED \
         --add-opens=java.base/java.util=ALL-UNNAMED \
-        --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED \
-        -Dpolyglot.engine.WarnInterpreterOnly=false \
         -jar "$SPIGOT_JAR" \
         --config "./data/cfg/server.properties" \
         --bukkit-settings "./data/cfg/bukkit.yml" \

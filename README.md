@@ -15,7 +15,7 @@ Ein vollständiger, selbst enthaltener Server-Stack zum Lehren von JavaScript-Pr
 
 ## Lokal testen
 
-Kein Domain-Name, kein TLS nötig. `docker-compose.local.yml` wird von Docker automatisch mitgeladen und deaktiviert Caddy.
+Kein Domain-Name, kein TLS nötig. `docker-compose.local.yml` muss explizit mit `-f` angegeben werden und deaktiviert Caddy. So wird verhindert, dass die lokale Konfiguration versehentlich in Produktion aktiv ist.
 
 ### 1. `.env` anlegen
 
@@ -128,6 +128,8 @@ Alle Einstellungen in `docker-compose.yml` unter `environment` — kein Image-Re
 
 Spigot startet bei einem Absturz automatisch neu. Bei `/stop` in der Server-Console stoppt er sauber ohne Neustart.
 
+> **Hinweis `online-mode=false`:** Der VPS kann Mojang's Authentifizierungsserver nicht erreichen, daher läuft der Server im Offline-Modus. Die Whitelist (`white-list=true`) übernimmt die Zugriffskontrolle.
+
 ---
 
 ## Whitelist
@@ -147,19 +149,34 @@ Oder `spigot/whitelist.json` im Repo bearbeiten und den Container neu starten (n
 ### Plugin (script4kids) aktualisieren
 
 ```bash
-sudo docker compose build spigot && sudo docker compose up -d spigot
+# Lokal:
+sudo docker compose -f docker-compose.yml -f docker-compose.local.yml build spigot && \
+sudo docker compose -f docker-compose.yml -f docker-compose.local.yml up -d spigot
+
+# Produktion:
+docker compose --profile production build spigot && docker compose --profile production up -d spigot
 ```
 
 ### Web-IDE aktualisieren
 
 ```bash
-sudo docker compose build webscriptcraft && sudo docker compose up -d webscriptcraft
+# Lokal:
+sudo docker compose -f docker-compose.yml -f docker-compose.local.yml build webscriptcraft && \
+sudo docker compose -f docker-compose.yml -f docker-compose.local.yml up -d webscriptcraft
+
+# Produktion:
+docker compose --profile production build webscriptcraft && docker compose --profile production up -d webscriptcraft
 ```
 
 ### Homepage aktualisieren
 
 ```bash
-sudo docker compose build homepage && sudo docker compose up -d homepage
+# Lokal:
+sudo docker compose -f docker-compose.yml -f docker-compose.local.yml build homepage && \
+sudo docker compose -f docker-compose.yml -f docker-compose.local.yml up -d homepage
+
+# Produktion:
+docker compose --profile production build homepage && docker compose --profile production up -d homepage
 ```
 
 Weltdaten und Spielerskripte liegen im `minecraft_data`-Volume und werden von Rebuilds nicht berührt.

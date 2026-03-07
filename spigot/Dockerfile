@@ -36,7 +36,7 @@ WORKDIR /server-base
 COPY --from=plugin-builder /build/target/jsmn-1.0-SNAPSHOT.jar plugins/
 
 # Server config
-COPY eula.txt server.properties server-icon.png ./
+COPY eula.txt server.properties server-icon.png whitelist.json ./
 
 # Startup script + watch_copy utility
 COPY entrypoint.sh /entrypoint.sh

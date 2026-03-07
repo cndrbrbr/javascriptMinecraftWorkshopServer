@@ -24,6 +24,7 @@ cp /server-base/plugins/*.jar /server/data/plugins/
 [ -f /server/eula.txt ]            || echo "eula=true" > /server/eula.txt
 [ -f /server/server-icon.png ]     || cp /server-base/server-icon.png /server/server-icon.png
 [ -f /server/data/cfg/server.properties ] || cp /server-base/server.properties /server/data/cfg/server.properties
+[ -f /server/whitelist.json ]      || cp /server-base/whitelist.json /server/whitelist.json
 
 # ── watch_copy: push image config changes to volume at runtime
 /watch_copy.sh /server-base/server.properties /server/data/cfg/server.properties &

@@ -273,5 +273,24 @@
     </p>
   </footer>
 
+  <script>
+    (function () {
+      var host = window.location.hostname;
+      var isProd = host === 'meckminecraft.de' || host === 'www.meckminecraft.de';
+
+      var ideUrl    = isProd ? 'https://javascript.meckminecraft.de' : 'http://' + host + ':8081';
+      var uploadUrl = isProd ? 'https://upload.meckminecraft.de'     : 'http://' + host + ':8082';
+      var mcAddress = isProd ? 'meckminecraft.de'                    : host;
+
+      document.querySelectorAll('a[href="https://javascript.meckminecraft.de"]')
+        .forEach(function (a) { a.href = ideUrl; });
+      document.querySelectorAll('a[href="https://upload.meckminecraft.de"]')
+        .forEach(function (a) { a.href = uploadUrl; });
+      document.querySelectorAll('code').forEach(function (c) {
+        if (c.textContent.trim() === 'meckminecraft.de') c.textContent = mcAddress;
+      });
+    })();
+  </script>
+
 </body>
 </html>

@@ -1,5 +1,5 @@
 # Serve the webscriptcraft IDE (static files from openb3/) via nginx
-FROM nginx:bookworm
+FROM nginx:trixie
 
 RUN apt-get update && apt-get install -y --no-install-recommends git \
     && git clone --depth=1 https://github.com/cndrbrbr/webscriptcraft.git /tmp/ws \

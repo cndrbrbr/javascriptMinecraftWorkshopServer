@@ -11,9 +11,9 @@
 # ============================================================
 
 # ── Stage 1: Build plugin ───────────────────────────────────
-FROM openjdk:21-jdk-bookworm AS plugin-builder
+FROM debian:bookworm-slim AS plugin-builder
 
-RUN apt-get update && apt-get install -y git maven && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y openjdk-21-jdk git maven && rm -rf /var/lib/apt/lists/*
 
 RUN git clone --depth=1 https://github.com/cndrbrbr/script4kids.git /build
 WORKDIR /build
@@ -21,9 +21,9 @@ RUN mvn clean package -DskipTests -q
 
 # ── Stage 2: Runtime ────────────────────────────────────────
 # JDK needed to run BuildTools (compiles Spigot on first start)
-FROM openjdk:21-jdk-bookworm
+FROM debian:bookworm-slim
 
-RUN apt-get update && apt-get install -y git curl inotify-tools && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y openjdk-21-jdk git curl inotify-tools && rm -rf /var/lib/apt/lists/*
 
 # Pre-download BuildTools so the container doesn't need internet at startup
 RUN mkdir -p /buildtools && \

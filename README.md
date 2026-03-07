@@ -15,7 +15,7 @@ Ein vollständiger, selbst enthaltener Server-Stack zum Lehren von JavaScript-Pr
 
 ## Lokal testen
 
-Kein Domain-Name, kein TLS nötig. `docker-compose.override.yml` wird von Docker automatisch mitgeladen und deaktiviert Caddy.
+Kein Domain-Name, kein TLS nötig. `docker-compose.local.yml` wird von Docker automatisch mitgeladen und deaktiviert Caddy.
 
 ### 1. `.env` anlegen
 
@@ -31,7 +31,7 @@ cp .env.example .env
 ### 2. Starten
 
 ```bash
-sudo docker compose up --build
+sudo docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
 ```
 
 Beim **ersten Start** baut Spigot sich selbst via BuildTools (~5–10 Min). Danach liegt der JAR auf dem Volume und der Start dauert nur Sekunden.
@@ -185,7 +185,7 @@ Die Upload-Seite prüft, ob der Spieler gerade eingeloggt ist — kein API-Key n
 .env.example                    Vorlage für lokale Konfiguration (HOST_IP)
 .env                            Lokale Konfiguration — nicht im Repo
 docker-compose.yml              Orchestration (Produktion)
-docker-compose.override.yml     Lokaler Test: kein Caddy, direkte Ports, HOST_IP
+docker-compose.local.yml     Lokaler Test: kein Caddy, direkte Ports, HOST_IP
 Caddyfile                       HTTPS-Proxy-Konfiguration
 setup-debian.sh                 OS-Setup für neuen Debian-Server
 spigot/

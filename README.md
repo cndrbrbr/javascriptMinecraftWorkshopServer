@@ -31,7 +31,7 @@ cp .env.example .env
 ### 2. Starten
 
 ```bash
-sudo docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
+./start_localhost.sh
 ```
 
 Beim **ersten Start** baut Spigot sich selbst via BuildTools (~5–10 Min). Danach liegt der JAR auf dem Volume und der Start dauert nur Sekunden.
@@ -79,24 +79,13 @@ gh repo clone cndrbrbr/javascriptMinecraftWorkshopServer
 cd javascriptMinecraftWorkshopServer
 ```
 
-Bei Bedarf Domain in `docker-compose.yml` anpassen (Standard: `meckminecraft.de`):
-
-```yaml
-caddy:
-  environment:
-    SERVER_DOMAIN: meckminecraft.de
-homepage:
-  environment:
-    IDE_URL: https://javascript.meckminecraft.de
-    UPLOAD_URL: https://upload.meckminecraft.de
-    MC_ADDRESS: meckminecraft.de
-```
-
-Dann starten:
+Dann starten — Domain als Argument übergeben:
 
 ```bash
-docker compose --profile production up -d --build
+./start_production.sh meckminecraft.de
 ```
+
+Das Skript setzt automatisch alle nötigen URLs (`SERVER_DOMAIN`, `IDE_URL`, `UPLOAD_URL`, `MC_ADDRESS`) auf die angegebene Domain.
 
 Caddy übernimmt TLS automatisch, sobald die DNS-Einträge aufgelöst sind.
 

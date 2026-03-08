@@ -9,7 +9,7 @@ services:
       - "443:443"
       - "443:443/udp"      # HTTP/3
     environment:
-      SERVER_DOMAIN: meckminecraft.de
+      SERVER_DOMAIN: ${SERVER_DOMAIN}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data        # TLS certificates (persisted)
@@ -48,9 +48,9 @@ services:
     build: ./homepage
     restart: unless-stopped
     environment:
-      IDE_URL: https://javascript.meckminecraft.de
-      UPLOAD_URL: https://upload.meckminecraft.de
-      MC_ADDRESS: meckminecraft.de
+      IDE_URL: ${IDE_URL}
+      UPLOAD_URL: ${UPLOAD_URL}
+      MC_ADDRESS: ${MC_ADDRESS}
     networks:
       - workshop
 

@@ -25,6 +25,8 @@ services:
   spigot:
     build: ./spigot
     restart: unless-stopped
+    stdin_open: true
+    tty: true
     ports:
       - "25565:25565"       # Minecraft — exposed to the internet
       # Port 25580 (script upload) is NOT exposed to the host;

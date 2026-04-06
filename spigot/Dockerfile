@@ -26,6 +26,8 @@ RUN apt-get update && apt-get install -y openjdk-21-jdk git maven && rm -rf /var
 
 RUN git clone --depth=1 https://github.com/cndrbrbr/geomaptools.git /build
 WORKDIR /build
+# pom.xml doesn't declare the SpigotMC repo — inject it via settings.xml
+RUN mkdir -p /root/.m2 && printf '<settings><profiles><profile><id>spigot</id><repositories><repository><id>spigot-snapshots</id><url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url></repository></repositories></profile></profiles><activeProfiles><activeProfile>spigot</activeProfile></activeProfiles></settings>' > /root/.m2/settings.xml
 RUN mvn clean package -DskipTests -q
 
 # ── Stage 2: Runtime ────────────────────────────────────────

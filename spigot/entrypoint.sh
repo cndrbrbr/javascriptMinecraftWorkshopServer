@@ -19,6 +19,8 @@ mkdir -p /server/data/cfg /server/data/plugins /server/data/worlds
 
 # ── Plugin: always update so image rebuilds take effect ──────
 cp /server-base/plugins/*.jar /server/data/plugins/
+mkdir -p /server/data/plugins/PrometheusExporter
+cp /server-base/plugins/PrometheusExporter/config.yml /server/data/plugins/PrometheusExporter/config.yml
 
 # ── Config: copy to volume on first run only ─────────────────
 [ -f /server/eula.txt ]            || echo "eula=true" > /server/eula.txt

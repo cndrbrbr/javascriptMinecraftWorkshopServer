@@ -50,6 +50,7 @@ COPY --from=geomaptools-builder /build/target/geomaptools.jar plugins/
 # Prometheus Exporter plugin
 RUN curl -fsSL -o plugins/PrometheusExporter.jar \
         https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v3.1.2/minecraft-prometheus-exporter-3.1.2.jar
+COPY prometheus-exporter-config.yml plugins/PrometheusExporter/config.yml
 
 # Server config
 COPY eula.txt server.properties server-icon.png whitelist.json ./

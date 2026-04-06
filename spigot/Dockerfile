@@ -10,12 +10,21 @@
 # Set FORCE_BUILD=true to rebuild even if JAR already exists.
 # ============================================================
 
-# ── Stage 1: Build plugin ───────────────────────────────────
+# ── Stage 1a: Build script4kids plugin ─────────────────────
 FROM debian:trixie-slim AS plugin-builder
 
 RUN apt-get update && apt-get install -y openjdk-21-jdk git maven && rm -rf /var/lib/apt/lists/*
 
 RUN git clone --depth=1 https://github.com/cndrbrbr/script4kids.git /build
+WORKDIR /build
+RUN mvn clean package -DskipTests -q
+
+# ── Stage 1b: Build geomaptools plugin ──────────────────────
+FROM debian:trixie-slim AS geomaptools-builder
+
+RUN apt-get update && apt-get install -y openjdk-21-jdk git maven && rm -rf /var/lib/apt/lists/*
+
+RUN git clone --depth=1 https://github.com/cndrbrbr/geomaptools.git /build
 WORKDIR /build
 RUN mvn clean package -DskipTests -q
 
@@ -32,8 +41,13 @@ RUN mkdir -p /buildtools && \
 
 WORKDIR /server-base
 
-# Plugin JAR
+# Plugin JARs
 COPY --from=plugin-builder /build/target/jsmn-1.0-SNAPSHOT.jar plugins/
+COPY --from=geomaptools-builder /build/target/geomaptools.jar plugins/
+
+# Prometheus Exporter plugin
+RUN curl -fsSL -o plugins/PrometheusExporter.jar \
+        https://github.com/sladkoff/minecraft-prometheus-exporter/releases/latest/download/PrometheusExporter.jar
 
 # Server config
 COPY eula.txt server.properties server-icon.png whitelist.json ./
@@ -45,6 +59,6 @@ RUN chmod +x /entrypoint.sh /watch_copy.sh
 
 WORKDIR /server
 
-EXPOSE 25565 25580
+EXPOSE 25565 25580 9940
 
 ENTRYPOINT ["/entrypoint.sh"]

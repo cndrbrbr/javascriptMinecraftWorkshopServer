@@ -29,6 +29,7 @@ services:
     tty: true
     ports:
       - "25565:25565"       # Minecraft — exposed to the internet
+      - "9940:9940"         # Prometheus metrics — scraped by external monitoring
       # Port 25580 (script upload) is NOT exposed to the host;
       # Caddy reaches it via the internal Docker network only.
     environment:

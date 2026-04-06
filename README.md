@@ -7,7 +7,7 @@ Ein vollständiger, selbst enthaltener Server-Stack zum Lehren von JavaScript-Pr
 | Container | Aufgabe |
 |---|---|
 | **caddy** | HTTPS-Reverse-Proxy, holt TLS-Zertifikat automatisch von Let's Encrypt |
-| **spigot** | Spigot 1.21.11 mit dem [script4kids](https://github.com/cndrbrbr/script4kids)-Plugin |
+| **spigot** | Spigot 1.21.11 mit [script4kids](https://github.com/cndrbrbr/script4kids)-, [geomaptools](https://github.com/cndrbrbr/geomaptools)- und [PrometheusExporter](https://github.com/sladkoff/minecraft-prometheus-exporter)-Plugin |
 | **webscriptcraft** | [Web-IDE](https://github.com/cndrbrbr/webscriptcraft) zum Schreiben und Visualisieren von Skripten |
 | **homepage** | Workshop-Homepage, ausgeliefert per nginx |
 
@@ -42,6 +42,7 @@ Beim **ersten Start** baut Spigot sich selbst via BuildTools (~5–10 Min). Dana
 | http://HOST_IP:8081 | Web-IDE |
 | http://HOST_IP:8082 | Script-Upload |
 | HOST_IP:25565 | Minecraft-Server |
+| HOST_IP:9940 | Prometheus-Metriken (PrometheusExporter-Plugin) |
 
 Die Homepage-Links zeigen automatisch auf die richtige IP — gesetzt durch `HOST_IP` in der `.env`.
 
@@ -95,6 +96,7 @@ Caddy übernimmt TLS automatisch, sobald die DNS-Einträge aufgelöst sind.
 | https://javascript.meckminecraft.de | Web-IDE |
 | https://upload.meckminecraft.de | Script-Upload |
 | meckminecraft.de:25565 | Minecraft-Server |
+| meckminecraft.de:9940 | Prometheus-Metriken (intern für Monitoring-Server) |
 
 ---
 
@@ -135,7 +137,9 @@ Oder `spigot/whitelist.json` im Repo bearbeiten und den Container neu starten (n
 
 ## Updates
 
-### Plugin (script4kids) aktualisieren
+### Plugins (script4kids / geomaptools) aktualisieren
+
+Die Plugins werden beim Image-Build aus GitHub geklont und kompiliert. Ein Rebuild des `spigot`-Images zieht automatisch den aktuellen Stand beider Repos.
 
 ```bash
 # Lokal:
@@ -169,6 +173,20 @@ docker compose --profile production build homepage && docker compose --profile p
 ```
 
 Weltdaten und Spielerskripte liegen im `minecraft_data`-Volume und werden von Rebuilds nicht berührt.
+
+---
+
+## Monitoring
+
+Der Server stellt Prometheus-Metriken über das [PrometheusExporter](https://github.com/sladkoff/minecraft-prometheus-exporter)-Plugin auf Port `9940` bereit. Das Monitoring (Prometheus + Grafana) läuft auf einem separaten Server und trägt diesen Server als Scrape-Target ein:
+
+```yaml
+# prometheus.yml auf dem Monitoring-Server
+scrape_configs:
+  - job_name: "minecraft"
+    static_configs:
+      - targets: ["<server-ip>:9940"]
+```
 
 ---
 

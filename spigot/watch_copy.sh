@@ -1,6 +1,6 @@
 #!/bin/bash
 #######################################################
-# copy file to volume whenever it changes
+# copy file to volume whenever it changes (polling)
 # usage: ./watch_copy.sh <source_file> <dest_file_or_dir>
 # (c) 2025 cndrbrbr
 #######################################################
@@ -24,10 +24,15 @@ else
     mkdir -p "$(dirname "$DEST_FILE")"
 fi
 
-echo "watch_copy: watching $SOURCE_FILE → $DEST_FILE"
+echo "watch_copy: watching $SOURCE_FILE → $DEST_FILE (polling)"
 
-inotifywait -m -e modify -e close_write -e attrib "$SOURCE_FILE" |
-while read -r path event file; do
-    echo "watch_copy: change detected ($event) → copying"
-    cp -f "$SOURCE_FILE" "$DEST_FILE"
+LAST_MOD=""
+while true; do
+    CURRENT_MOD=$(stat -c "%Y" "$SOURCE_FILE" 2>/dev/null)
+    if [ "$CURRENT_MOD" != "$LAST_MOD" ] && [ -n "$LAST_MOD" ]; then
+        echo "watch_copy: change detected → copying"
+        cp -f "$SOURCE_FILE" "$DEST_FILE"
+    fi
+    LAST_MOD="$CURRENT_MOD"
+    sleep 5
 done

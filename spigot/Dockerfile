@@ -31,10 +31,23 @@ RUN mkdir -p /root/.m2 && printf '<settings><profiles><profile><id>spigot</id><r
 RUN mvn clean package -DskipTests -q
 
 # ── Stage 2: Runtime ────────────────────────────────────────
-# JDK needed to run BuildTools (compiles Spigot on first start)
+# GraalVM JDK is used so the jsmn plugin's shaded Truffle/Polyglot runtime can
+# use JVMCI for optimised JS compilation. Standard OpenJDK lacks JVMCI, which
+# means Truffle falls back to slow interpretation. The jsmn plugin (script4kids)
+# shades org.graalvm.polyglot and the Truffle runtime into its JAR via the
+# maven-shade-plugin, so no additional classpath setup is needed at runtime.
 FROM debian:trixie-slim
 
-RUN apt-get update && apt-get install -y openjdk-21-jdk git curl inotify-tools && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git curl tar gzip && rm -rf /var/lib/apt/lists/*
+
+# Install GraalVM Community JDK 21 (provides the GraalVM Polyglot/Truffle runtime)
+ARG GRAALVM_VERSION=21.0.2
+RUN curl -fsSL \
+        "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-${GRAALVM_VERSION}/graalvm-community-jdk-${GRAALVM_VERSION}_linux-x64_bin.tar.gz" \
+    | tar -xzC /opt/ && \
+    mv "$(find /opt -maxdepth 1 -name 'graalvm-community-openjdk-*' -type d)" /opt/graalvm
+ENV JAVA_HOME=/opt/graalvm
+ENV PATH=$JAVA_HOME/bin:$PATH
 
 # Pre-download BuildTools so the container doesn't need internet at startup
 RUN mkdir -p /buildtools && \

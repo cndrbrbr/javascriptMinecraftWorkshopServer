@@ -1,0 +1,25 @@
+# javascriptMinecraftWorkshopServer — override for external caddy-proxy
+#
+# Disables the built-in Caddy and connects the web-facing services
+# to the shared `proxy` network so caddy-proxy can reach them.
+# Minecraft (25565) and Prometheus (9940) remain untouched.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.proxy.yml up -d
+
+services:
+  caddy:
+    profiles: [disabled]
+
+  homepage:
+    networks: [workshop, proxy]
+
+  webscriptcraft:
+    networks: [workshop, proxy]
+
+  spigot:
+    networks: [workshop, proxy]
+
+networks:
+  proxy:
+    external: true

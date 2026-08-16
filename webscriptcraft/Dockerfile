@@ -1,4 +1,5 @@
-# Serve the webscriptcraft IDE (static files from openb3/) via nginx
+# Serve webscriptcraft (static files from openb3/) via nginx --
+# landing hub at /, the IDE at /ide.html, courses at /kurs/ and /kurs-js/
 FROM nginx:trixie
 
 RUN apt-get update && apt-get install -y --no-install-recommends git \

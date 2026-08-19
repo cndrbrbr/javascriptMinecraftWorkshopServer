@@ -2,6 +2,27 @@
 
 ## 2026-08-19
 
+### Fixed: documented whitelist hot-reload command doesn't work
+
+**README.md** — Whitelist section
+
+`docker compose exec spigot bash -c 'echo "whitelist add X" >> /proc/1/fd/0'` was documented as a way to add a
+player without restarting. It doesn't work: `spigot` runs with `tty: true` (added for interactive console
+access), so `fd 0` is a PTY *slave*. Writing to it goes out the PTY *master* side — which is what `docker logs`
+reads — instead of reaching the Java process's own input. The command text shows up in the log looking like it
+ran, but the server never executes it. Confirmed live: a player was rejected by the whitelist both before and
+after sending the echo, with no change in behavior.
+
+Also discovered while debugging: the offline-mode server checks the whitelist strictly by UUID (the
+deterministic `MD5("OfflinePlayer:<name>")` offline UUID), not by name — a `whitelist.json` entry with the
+right name but a stale/wrong UUID rejects the player exactly as if they weren't listed at all, with no
+indication in the rejection message that the UUID is the problem.
+
+Replaced the doc with the method that was actually verified working end-to-end (a player connecting
+successfully): compute or read off the correct offline UUID, edit `whitelist.json` directly, then
+`docker compose restart spigot`. Documented `docker attach` (which does reach the real console, since it
+connects to the PTY master) as the option for live commands without a restart.
+
 ### Moved the Blockly-Kurs and JavaScript-Kurs from `webscriptcraft` into `homepage`
 
 The two courses (`kurs/`, `kurs-js/`) had been built inside the `webscriptcraft`

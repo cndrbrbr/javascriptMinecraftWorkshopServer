@@ -128,13 +128,37 @@ Spigot startet bei einem Absturz automatisch neu. Bei `/stop` in der Server-Cons
 
 ## Whitelist
 
-Der Server läuft mit `white-list=true`. `cndrbrbr` ist standardmäßig eingetragen. Weitere Spieler vor dem Workshop hinzufügen:
+Der Server läuft mit `white-list=true` und `online-mode=false` (s.u.) — geprüft wird strikt per **Offline-UUID**
+(`MD5("OfflinePlayer:<Name>")`), nicht per Name und nicht per echter Mojang-UUID. `cndrbrbr` ist mit der
+korrekten Offline-UUID standardmäßig eingetragen.
 
-```bash
-docker compose exec spigot bash -c 'echo "whitelist add Steve" >> /proc/1/fd/0'
-```
+Weitere Spieler vor dem Workshop hinzufügen:
 
-Oder `spigot/whitelist.json` im Repo bearbeiten und den Container neu starten (nur auf leerem Volume wirksam).
+1. `spigot/whitelist.json` einen Eintrag mit Name **und** korrekter Offline-UUID hinzufügen:
+   ```bash
+   python3 -c "
+   import hashlib
+   name = 'Steve'
+   d = bytearray(hashlib.md5(('OfflinePlayer:' + name).encode()).digest())
+   d[6] = (d[6] & 0x0f) | 0x30
+   d[8] = (d[8] & 0x3f) | 0x80
+   h = d.hex()
+   print(f'{h[0:8]}-{h[8:12]}-{h[12:16]}-{h[16:20]}-{h[20:32]}')"
+   ```
+   Alternativ: den Spieler einmal verbinden lassen — der Server loggt `UUID of player <Name> is <uuid>`, auch
+   wenn die Verbindung als "nicht gewhitelistet" abgelehnt wird. Diese UUID übernehmen.
+
+2. Container neu starten, damit die Datei neu eingelesen wird:
+   ```bash
+   docker compose restart spigot
+   ```
+   (Auf einem leeren Volume wird `whitelist.json` ohnehin nur beim allerersten Start auf das Volume kopiert.)
+
+> **Hinweis:** `echo "whitelist add X" >> /proc/1/fd/0` — früher hier dokumentiert, um ohne Neustart nachzuladen —
+> funktioniert mit diesem Container **nicht**. `spigot` läuft mit `tty: true`, wodurch `fd 0` ein PTY-*Slave* ist;
+> Schreiben darauf landet auf der PTY-*Master*-Seite (die auch `docker logs` einliest) statt als Eingabe beim
+> Java-Prozess anzukommen — der Text taucht im Log auf, wird aber nie als Server-Befehl ausgeführt. Für echte
+> interaktive Konsolenbefehle ohne Neustart: `docker attach <container>` (Trennen mit `Ctrl-P Ctrl-Q`, nicht `Ctrl-C`).
 
 ---
 

@@ -1,5 +1,6 @@
 # Serve webscriptcraft (static files from openb3/) via nginx --
-# landing hub at /, the IDE at /ide.html, courses at /kurs/ and /kurs-js/
+# the IDE at /ide.html; / redirects there. Courses (kurs/, kurs-js/) live in
+# the javascriptMinecraftWorkshopServer homepage container, not here.
 FROM nginx:trixie
 
 RUN apt-get update && apt-get install -y --no-install-recommends git \

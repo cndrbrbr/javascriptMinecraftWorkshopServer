@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lektion 8: Funktionen + Schleifen kombinieren</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<header><div class="wrap top"><h1>Blockly → JavaScript → Minecraft</h1>
+<nav><a href="../index.html">Kurs</a><a href="${IDE_URL}">JSMN IDE öffnen</a></nav></div></header>
+<main class="wrap"><article class="lesson">
+<span class="badge">Lektion 8 von 12</span>
+<h1>Funktionen + Schleifen kombinieren</h1>
+<div class="meta"><div><strong>Programmieridee</strong><br>Abstraktion und Wiederholung</div>
+<div><strong>Minecraft-Projekt</strong><br>Eine Häuserstraße</div>
+<div><strong>Lernziel</strong><br>Mehrere bekannte Konzepte gemeinsam verwenden.</div></div>
+<p><a class="ide-button" href="${IDE_URL}">JSMN IDE öffnen →</a></p>
+<div class="teacher"><strong>Für Lehrkräfte:</strong> Jetzt lohnt sich ein kurzer Blick auf das erzeugte JavaScript: Blockly-Blöcke sind keine Magie, sondern schreiben strukturierten Code.</div>
+<h2>So sieht der Blockly-Bauplan aus</h2>
+<div class="block-stack"><div class="block function">function <span class="slot">haus</span></div>
+<div class="block build indent">box0 <span class="slot">Cobblestone</span> W <span class="slot">7</span> H <span class="slot">4</span> D <span class="slot">7</span></div>
+<div class="block move indent">up <span class="slot">4</span></div>
+<div class="block build indent">box <span class="slot">Quartz</span> <span class="slot">7</span> <span class="slot">1</span> <span class="slot">7</span></div>
+<div class="block move indent">down <span class="slot">4</span></div>
+<div class="block function">end function</div>
+<div class="block function">function <span class="slot">strasse</span></div>
+<div class="block loop indent">repeat <span class="slot">8</span> times</div>
+<div class="block function indent2">call <span class="slot">haus</span> ()</div>
+<div class="block move indent2">right <span class="slot">10</span></div>
+<div class="block loop indent">end repeat</div>
+<div class="block function">end function</div>
+<div class="block preview">preview function <span class="slot">strasse</span></div></div>
+<p class="small">Die Darstellung hier ist eine schematische Lernhilfe. In der IDE werden die echten Blockly-Blöcke aus der Werkzeugkiste verwendet.</p>
+<h2>Schritt für Schritt</h2><ol class="check"><li>Baue und teste erst `haus` allein.</li><li>Füge die Hauptfunktion `strasse` hinzu.</li><li>Rufe `haus` in einer `repeat`-Schleife auf.</li><li>Verschiebe die Drohne nach jedem Haus.</li></ol>
+<h2>Was Blockly daraus als JavaScript macht</h2>
+<pre><code>function haus() {
+  drone.box0(&quot;COBBLESTONE&quot;,7,4,7);
+  drone.up(4);
+  drone.box(&quot;QUARTZ_BLOCK&quot;,7,1,7);
+  drone.down(4);
+}
+function strasse() {
+  for (var n=0;n&lt;8;n++) {
+    haus();
+    drone.right(10);
+  }
+}
+strasse();</code></pre>
+<div class="tip"><strong>JavaScript-Brücke:</strong> Vergleicht die Blöcke mit dem Code. Welche Zeile gehört zu welchem Block?</div>
+<div class="challenge"><strong>Challenge:</strong><p>Baue zwei parallele Häuserreihen. Verwende eine zweite Funktion oder eine zweite Schleife.</p></div>
+<div class="warning"><strong>Typische Stolperstellen</strong><ul><li>Die Hausfunktion sollte die Drohne wieder auf Bodenhöhe bringen.</li><li>Der Abstand muss groß genug sein, damit Häuser nicht überlappen.</li></ul></div>
+<nav class="nav"><a href="lektion-07.html">← Vorherige Lektion</a><a href="lektion-09.html">Nächste Lektion →</a></nav>
+</article></main>
+<footer><div class="wrap">Kurs für die JSMN Blockly IDE / webscriptcraft – relative Pfade, keine externen Kurs-Abhängigkeiten.</div></footer>
+</body></html>

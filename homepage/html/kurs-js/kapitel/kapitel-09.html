@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitel 9: Verschachtelte Schleifen – JavaScript in Minecraft</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap brand">
+    <h1>JavaScript in Minecraft</h1>
+    <nav>
+      <a href="../index.html">Kursübersicht</a>
+      <a href="../index.html#lehrkraft">Für Lehrkräfte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="chapter">
+    <span class="badge">Kapitel 9 von 12</span>
+    <h1>Verschachtelte Schleifen</h1>
+
+    <div class="lesson-meta">
+      <div><strong>JavaScript</strong><br>Zeilen und Spalten, verschachtelte Schleifen, 2D-Muster</div>
+      <div><strong>Minecraft-Projekt</strong><br>Schachbrett und Pixel-Art</div>
+      <div><strong>Lernziel</strong><br>Die Kinder erzeugen zweidimensionale Muster mit einer Schleife innerhalb einer anderen.</div>
+    </div>
+
+    <p>Eine Schleife baut eine Reihe. Eine zweite Schleife kann daraus viele Reihen machen.</p>
+
+    <div class="teacher"><strong>Für Lehrkräfte:</strong> Erst die Aufgabe zeigen, dann das Problem gemeinsam besprechen und danach das neue JavaScript-Konzept einführen. So entsteht die Syntax aus einem sichtbaren Bauproblem.</div>
+
+    <h2>Startcode</h2>
+    <pre><code>var groesse = 10;
+
+for (var zeile = 0; zeile &lt; groesse; zeile++) {
+    drone.chkpt(&quot;zeile&quot;);
+
+    for (var spalte = 0; spalte &lt; groesse; spalte++) {
+        if ((zeile + spalte) % 2 == 0) {
+            drone.box(&quot;WHITE_CONCRETE&quot;);
+        } else {
+            drone.box(&quot;BLACK_CONCRETE&quot;);
+        }
+        drone.right();
+    }
+
+    drone.move(&quot;zeile&quot;);
+    drone.fwd();
+}</code></pre>
+
+    <h2>Schritt für Schritt</h2>
+    <h3>1. Größe verändern</h3><p>Teste 6×6, 10×10 und 16×16.</p>
+<h3>2. Farben verändern</h3><p>Baue ein rot-blaues Spielfeld.</p>
+<h3>3. Muster entwickeln</h3><p>Ändere die Bedingung, sodass Streifen statt eines Schachbretts entstehen.</p>
+
+    <div class="challenge">
+      <strong>Challenge:</strong>
+      <p>Baue ein 16×16 großes Pixel-Feld und erfinde mit Bedingungen ein eigenes geometrisches Muster.</p>
+    </div>
+
+    <h2>Musterlösung</h2>
+    <p class="small">Die Musterlösung ist nur eine mögliche Lösung. Andere funktionierende Lösungen sind ausdrücklich erwünscht.</p>
+    <pre><code>var groesse = 16;
+
+for (var z = 0; z &lt; groesse; z++) {
+    drone.chkpt(&quot;reihe&quot;);
+
+    for (var s = 0; s &lt; groesse; s++) {
+        if (z == s || z + s == groesse - 1) {
+            drone.box(&quot;RED_CONCRETE&quot;);
+        } else {
+            drone.box(&quot;WHITE_CONCRETE&quot;);
+        }
+        drone.right();
+    }
+
+    drone.move(&quot;reihe&quot;).fwd();
+}</code></pre>
+
+    <div class="mistake">
+      <strong>Typische Fehler</strong>
+      <ul><li>Die innere Schleife läuft für jede Runde der äußeren Schleife vollständig durch.</li><li>Ein Checkpoint am Reihenanfang verhindert, dass der Drone schräg davonläuft.</li><li>Beim Debuggen zuerst kleine Größen wie 4×4 verwenden.</li></ul>
+    </div>
+
+    <nav class="chapter-nav">
+      <a href="kapitel-08.html">← Vorheriges Kapitel</a>
+      <a href="kapitel-10.html">Nächstes Kapitel →</a>
+    </nav>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kursmaterial für JSMN / script4kids. Alle Seiten verwenden relative Pfade.
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lektion 7: Eigene Funktionen als Bausteine</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<header><div class="wrap top"><h1>Blockly → JavaScript → Minecraft</h1>
+<nav><a href="../index.html">Kurs</a><a href="${IDE_URL}">JSMN IDE öffnen</a></nav></div></header>
+<main class="wrap"><article class="lesson">
+<span class="badge">Lektion 7 von 12</span>
+<h1>Eigene Funktionen als Bausteine</h1>
+<div class="meta"><div><strong>Programmieridee</strong><br>Funktionen und Aufrufe</div>
+<div><strong>Minecraft-Projekt</strong><br>Eine Säulenhalle</div>
+<div><strong>Lernziel</strong><br>Ein Bauobjekt einmal definieren und mehrfach wiederverwenden.</div></div>
+<p><a class="ide-button" href="${IDE_URL}">JSMN IDE öffnen →</a></p>
+<div class="teacher"><strong>Für Lehrkräfte:</strong> Funktion als selbst erfundenen neuen Baubefehl erklären. Das ist eine starke Brücke zum späteren textuellen Programmieren.</div>
+<h2>So sieht der Blockly-Bauplan aus</h2>
+<div class="block-stack"><div class="block function">function <span class="slot">saeule</span></div>
+<div class="block build indent">box <span class="slot">Quartz</span> <span class="slot">1</span> <span class="slot">6</span> <span class="slot">1</span></div>
+<div class="block function">end function</div>
+<div class="block function">function <span class="slot">halle</span></div>
+<div class="block function indent">call <span class="slot">saeule</span> ()</div>
+<div class="block move indent">fwd <span class="slot">4</span></div>
+<div class="block function indent">call <span class="slot">saeule</span> ()</div>
+<div class="block move indent">fwd <span class="slot">4</span></div>
+<div class="block function indent">call <span class="slot">saeule</span> ()</div>
+<div class="block function">end function</div>
+<div class="block preview">preview function <span class="slot">halle</span></div></div>
+<p class="small">Die Darstellung hier ist eine schematische Lernhilfe. In der IDE werden die echten Blockly-Blöcke aus der Werkzeugkiste verwendet.</p>
+<h2>Schritt für Schritt</h2><ol class="check"><li>Definiere zuerst `saeule`.</li><li>Definiere danach `halle`.</li><li>Rufe `saeule()` in der Halle mehrfach auf.</li><li>Setze nur `halle` als Preview-Funktion.</li></ol>
+<h2>Was Blockly daraus als JavaScript macht</h2>
+<pre><code>function saeule() {
+  drone.box(&quot;QUARTZ_BLOCK&quot;,1,6,1);
+};
+function halle() {
+  saeule();
+  drone.fwd(4);
+  saeule();
+  drone.fwd(4);
+  saeule();
+};
+halle();</code></pre>
+<div class="tip"><strong>JavaScript-Brücke:</strong> Vergleicht die Blöcke mit dem Code. Welche Zeile gehört zu welchem Block?</div>
+<div class="challenge"><strong>Challenge:</strong><p>Kombiniere Funktionsaufruf und `repeat`, sodass eine Halle mit 10 Säulen entsteht.</p></div>
+<div class="warning"><strong>Typische Stolperstellen</strong><ul><li>Jede Funktion braucht einen eindeutigen Namen.</li><li>Als Preview-Funktion die Hauptfunktion auswählen, nicht den kleinen Baustein.</li></ul></div>
+<nav class="nav"><a href="lektion-06.html">← Vorherige Lektion</a><a href="lektion-08.html">Nächste Lektion →</a></nav>
+</article></main>
+<footer><div class="wrap">Kurs für die JSMN Blockly IDE / webscriptcraft – relative Pfade, keine externen Kurs-Abhängigkeiten.</div></footer>
+</body></html>

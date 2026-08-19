@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitel 3: Der Drone bewegt sich – JavaScript in Minecraft</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap brand">
+    <h1>JavaScript in Minecraft</h1>
+    <nav>
+      <a href="../index.html">Kursübersicht</a>
+      <a href="../index.html#lehrkraft">Für Lehrkräfte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="chapter">
+    <span class="badge">Kapitel 3 von 12</span>
+    <h1>Der Drone bewegt sich</h1>
+
+    <div class="lesson-meta">
+      <div><strong>JavaScript</strong><br>Sequenzen, räumliches Denken, Bewegung</div>
+      <div><strong>Minecraft-Projekt</strong><br>Eine Straße</div>
+      <div><strong>Lernziel</strong><br>Die Kinder lernen den Drone als virtuellen Baumeister mit Position und Blickrichtung kennen.</div>
+    </div>
+
+    <p>Der Drone kann sich vorwärts, rückwärts, nach links, rechts, oben und unten bewegen.</p>
+
+    <div class="teacher"><strong>Für Lehrkräfte:</strong> Erst die Aufgabe zeigen, dann das Problem gemeinsam besprechen und danach das neue JavaScript-Konzept einführen. So entsteht die Syntax aus einem sichtbaren Bauproblem.</div>
+
+    <h2>Startcode</h2>
+    <pre><code>drone.box(&quot;GOLD_BLOCK&quot;);
+drone.fwd(5);
+drone.box(&quot;DIAMOND_BLOCK&quot;);
+drone.right(5);
+drone.box(&quot;EMERALD_BLOCK&quot;);</code></pre>
+
+    <h2>Schritt für Schritt</h2>
+    <h3>1. Bewegungen testen</h3><p>Teste `fwd`, `back`, `left`, `right`, `up` und `down`.</p>
+<h3>2. Markierungen bauen</h3><p>Setze an jeder neuen Position einen anderen Block.</p>
+<h3>3. Straße bauen</h3><p>Erzeuge eine 5 Blöcke breite und 20 Blöcke lange Straße.</p>
+
+    <div class="challenge">
+      <strong>Challenge:</strong>
+      <p>Baue eine Straße mit zwei Gehwegen. Die Fahrbahn soll aus STONE bestehen, die Gehwege aus SMOOTH_STONE.</p>
+    </div>
+
+    <h2>Musterlösung</h2>
+    <p class="small">Die Musterlösung ist nur eine mögliche Lösung. Andere funktionierende Lösungen sind ausdrücklich erwünscht.</p>
+    <pre><code>drone.box(&quot;STONE&quot;, 5, 1, 20);
+drone.left(1);
+drone.box(&quot;SMOOTH_STONE&quot;, 1, 1, 20);
+drone.right(6);
+drone.box(&quot;SMOOTH_STONE&quot;, 1, 1, 20);</code></pre>
+
+    <div class="mistake">
+      <strong>Typische Fehler</strong>
+      <ul><li>Die Bewegungen beziehen sich auf die Blickrichtung des Drone.</li><li>`right(5)` bewegt fünf Blöcke, baut aber nichts.</li><li>Wenn das Ergebnis unerwartet liegt, stelle dich vor dem Start bewusst in eine eindeutige Richtung.</li></ul>
+    </div>
+
+    <nav class="chapter-nav">
+      <a href="kapitel-02.html">← Vorheriges Kapitel</a>
+      <a href="kapitel-04.html">Nächstes Kapitel →</a>
+    </nav>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kursmaterial für JSMN / script4kids. Alle Seiten verwenden relative Pfade.
+  </div>
+</footer>
+</body>
+</html>

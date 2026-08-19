@@ -52,8 +52,6 @@ services:
       IDE_URL: ${IDE_URL}
       UPLOAD_URL: ${UPLOAD_URL}
       MC_ADDRESS: ${MC_ADDRESS}
-      KURS_BLOCKLY_URL: ${KURS_BLOCKLY_URL}
-      KURS_JS_URL: ${KURS_JS_URL}
     networks:
       - workshop
 

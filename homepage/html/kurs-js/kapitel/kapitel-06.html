@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitel 6: Funktionen – eigene Baubefehle – JavaScript in Minecraft</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap brand">
+    <h1>JavaScript in Minecraft</h1>
+    <nav>
+      <a href="../index.html">Kursübersicht</a>
+      <a href="../index.html#lehrkraft">Für Lehrkräfte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="chapter">
+    <span class="badge">Kapitel 6 von 12</span>
+    <h1>Funktionen – eigene Baubefehle</h1>
+
+    <div class="lesson-meta">
+      <div><strong>JavaScript</strong><br>Funktionen, Wiederverwendung, Abstraktion</div>
+      <div><strong>Minecraft-Projekt</strong><br>Häuserfabrik</div>
+      <div><strong>Lernziel</strong><br>Die Kinder fassen wiederverwendbaren Code in einer eigenen Funktion zusammen.</div>
+    </div>
+
+    <p>Wir bringen Minecraft einen neuen Befehl bei: `haus()`.</p>
+
+    <div class="teacher"><strong>Für Lehrkräfte:</strong> Erst die Aufgabe zeigen, dann das Problem gemeinsam besprechen und danach das neue JavaScript-Konzept einführen. So entsteht die Syntax aus einem sichtbaren Bauproblem.</div>
+
+    <h2>Startcode</h2>
+    <pre><code>function haus() {
+    drone.box0(&quot;OAK_PLANKS&quot;, 7, 4, 7);
+    drone.up(4);
+    drone.box(&quot;STONE_BRICKS&quot;, 7, 1, 7);
+    drone.down(4);
+}
+
+haus();
+drone.right(10);
+haus();
+drone.right(10);
+haus();</code></pre>
+
+    <h2>Schritt für Schritt</h2>
+    <h3>1. Funktion benennen</h3><p>Probiere einen anderen Funktionsnamen, z. B. `kleinesHaus`.</p>
+<h3>2. Mehrfach aufrufen</h3><p>Baue fünf Häuser in einer Reihe.</p>
+<h3>3. Kombination</h3><p>Verwende eine Schleife, um `haus()` mehrfach aufzurufen.</p>
+
+    <div class="challenge">
+      <strong>Challenge:</strong>
+      <p>Baue mit einer Funktion und einer Schleife eine Reihe aus 8 gleichen Häusern.</p>
+    </div>
+
+    <h2>Musterlösung</h2>
+    <p class="small">Die Musterlösung ist nur eine mögliche Lösung. Andere funktionierende Lösungen sind ausdrücklich erwünscht.</p>
+    <pre><code>function haus() {
+    drone.box0(&quot;OAK_PLANKS&quot;, 7, 4, 7);
+    drone.up(4).box(&quot;STONE_BRICKS&quot;, 7, 1, 7);
+    drone.down(4);
+}
+
+for (var i = 0; i &lt; 8; i++) {
+    haus();
+    drone.right(10);
+}</code></pre>
+
+    <div class="mistake">
+      <strong>Typische Fehler</strong>
+      <ul><li>Die Funktion wird erst ausgeführt, wenn sie aufgerufen wird: `haus();`.</li><li>Funktionsnamen brauchen beim Aufruf runde Klammern.</li><li>Die Position des Drone bleibt nach der Funktion verändert, wenn du sie nicht zurücksetzt.</li></ul>
+    </div>
+
+    <nav class="chapter-nav">
+      <a href="kapitel-05.html">← Vorheriges Kapitel</a>
+      <a href="kapitel-07.html">Nächstes Kapitel →</a>
+    </nav>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kursmaterial für JSMN / script4kids. Alle Seiten verwenden relative Pfade.
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lektion 5: Variablen – Zahlen bekommen Namen</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<header><div class="wrap top"><h1>Blockly → JavaScript → Minecraft</h1>
+<nav><a href="../index.html">Kurs</a><a href="${IDE_URL}">JSMN IDE öffnen</a></nav></div></header>
+<main class="wrap"><article class="lesson">
+<span class="badge">Lektion 5 von 12</span>
+<h1>Variablen – Zahlen bekommen Namen</h1>
+<div class="meta"><div><strong>Programmieridee</strong><br>Variablen und move by var</div>
+<div><strong>Minecraft-Projekt</strong><br>Ein parametrisierter Turm</div>
+<div><strong>Lernziel</strong><br>Werte speichern und in mehreren Blockly-Blöcken wiederverwenden.</div></div>
+<p><a class="ide-button" href="${IDE_URL}">JSMN IDE öffnen →</a></p>
+<div class="teacher"><strong>Für Lehrkräfte:</strong> Variablen als beschriftete Schachteln erklären: In `hoehe` liegt gerade die Zahl 5.</div>
+<h2>So sieht der Blockly-Bauplan aus</h2>
+<div class="block-stack"><div class="block var indent">set <span class="slot">hoehe</span> to <span class="slot">5</span></div>
+<div class="block function">function <span class="slot">turm</span></div>
+<div class="block build indent">box0 <span class="slot">Stone</span> W <span class="slot">7</span> H <span class="slot">hoehe</span> D <span class="slot">7</span></div>
+<div class="block move indent">move <span class="slot">up</span> by <span class="slot">hoehe</span></div>
+<div class="block build indent">box <span class="slot">Quartz</span> <span class="slot">7</span> <span class="slot">1</span> <span class="slot">7</span></div>
+<div class="block function">end function</div>
+<div class="block preview">preview function <span class="slot">turm</span></div></div>
+<p class="small">Die Darstellung hier ist eine schematische Lernhilfe. In der IDE werden die echten Blockly-Blöcke aus der Werkzeugkiste verwendet.</p>
+<h2>Schritt für Schritt</h2><ol class="check"><li>Erstelle die Variable `hoehe`.</li><li>Setze sie auf 5.</li><li>Verwende sie als Höhe des Gebäudes.</li><li>Benutze `move by var`, damit die Drohne genau um dieselbe Höhe nach oben fährt.</li></ol>
+<h2>Was Blockly daraus als JavaScript macht</h2>
+<pre><code>var hoehe = 5;
+function turm() {
+  drone.box0(&quot;STONE&quot;,7,hoehe,7);
+  drone.up(hoehe);
+  drone.box(&quot;QUARTZ_BLOCK&quot;,7,1,7);
+};
+turm();</code></pre>
+<div class="tip"><strong>JavaScript-Brücke:</strong> Vergleicht die Blöcke mit dem Code. Welche Zeile gehört zu welchem Block?</div>
+<div class="challenge"><strong>Challenge:</strong><p>Lege zusätzlich `breite` an und steuere damit Wand- und Dachbreite.</p></div>
+<div class="warning"><strong>Typische Stolperstellen</strong><ul><li>Für variable Bewegungsweiten braucht man den Block `move by var`.</li><li>Wenn Dach und Wände dieselbe Größe haben sollen, überall dieselbe Variable verwenden.</li></ul></div>
+<nav class="nav"><a href="lektion-04.html">← Vorherige Lektion</a><a href="lektion-06.html">Nächste Lektion →</a></nav>
+</article></main>
+<footer><div class="wrap">Kurs für die JSMN Blockly IDE / webscriptcraft – relative Pfade, keine externen Kurs-Abhängigkeiten.</div></footer>
+</body></html>

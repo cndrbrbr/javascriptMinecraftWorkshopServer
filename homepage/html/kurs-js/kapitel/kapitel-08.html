@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitel 8: Entscheidungen mit if und else – JavaScript in Minecraft</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap brand">
+    <h1>JavaScript in Minecraft</h1>
+    <nav>
+      <a href="../index.html">Kursübersicht</a>
+      <a href="../index.html#lehrkraft">Für Lehrkräfte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="chapter">
+    <span class="badge">Kapitel 8 von 12</span>
+    <h1>Entscheidungen mit if und else</h1>
+
+    <div class="lesson-meta">
+      <div><strong>JavaScript</strong><br>Bedingungen, Vergleiche, Modulo</div>
+      <div><strong>Minecraft-Projekt</strong><br>Abwechslungsreiche Fassaden</div>
+      <div><strong>Lernziel</strong><br>Die Kinder lassen ihr Programm abhängig von Bedingungen unterschiedliche Entscheidungen treffen.</div>
+    </div>
+
+    <p>Programme können nicht nur wiederholen – sie können entscheiden.</p>
+
+    <div class="teacher"><strong>Für Lehrkräfte:</strong> Erst die Aufgabe zeigen, dann das Problem gemeinsam besprechen und danach das neue JavaScript-Konzept einführen. So entsteht die Syntax aus einem sichtbaren Bauproblem.</div>
+
+    <h2>Startcode</h2>
+    <pre><code>var stockwerke = 12;
+
+for (var i = 0; i &lt; stockwerke; i++) {
+    if (i % 2 == 0) {
+        drone.box0(&quot;WHITE_CONCRETE&quot;, 9, 3, 9);
+    } else {
+        drone.box0(&quot;GLASS&quot;, 9, 3, 9);
+    }
+
+    drone.up(3);
+}</code></pre>
+
+    <h2>Schritt für Schritt</h2>
+    <h3>1. Gerade und ungerade</h3><p>Beobachte, welche Stockwerke welches Material bekommen.</p>
+<h3>2. Andere Regel</h3><p>Verwende `i % 3 == 0` und beschreibe das Muster.</p>
+<h3>3. Nachricht</h3><p>Gib bei einem hohen Haus eine andere Meldung als bei einem kleinen aus.</p>
+
+    <div class="challenge">
+      <strong>Challenge:</strong>
+      <p>Baue ein 18-stöckiges Hochhaus, bei dem jedes dritte Stockwerk aus GLASS und alle anderen aus WHITE_CONCRETE bestehen.</p>
+    </div>
+
+    <h2>Musterlösung</h2>
+    <p class="small">Die Musterlösung ist nur eine mögliche Lösung. Andere funktionierende Lösungen sind ausdrücklich erwünscht.</p>
+    <pre><code>var stockwerke = 18;
+
+for (var i = 0; i &lt; stockwerke; i++) {
+    if (i % 3 == 0) {
+        drone.box0(&quot;GLASS&quot;, 9, 3, 9);
+    } else {
+        drone.box0(&quot;WHITE_CONCRETE&quot;, 9, 3, 9);
+    }
+    drone.up(3);
+}</code></pre>
+
+    <div class="mistake">
+      <strong>Typische Fehler</strong>
+      <ul><li>`==` vergleicht Werte; `=` weist einen Wert zu.</li><li>`%` liefert den Rest einer Division.</li><li>Bei komplizierten Bedingungen erst mit Chat-Nachrichten testen, bevor gebaut wird.</li></ul>
+    </div>
+
+    <nav class="chapter-nav">
+      <a href="kapitel-07.html">← Vorheriges Kapitel</a>
+      <a href="kapitel-09.html">Nächstes Kapitel →</a>
+    </nav>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kursmaterial für JSMN / script4kids. Alle Seiten verwenden relative Pfade.
+  </div>
+</footer>
+</body>
+</html>

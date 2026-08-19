@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lektion 6: Zählschleifen mit for</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<header><div class="wrap top"><h1>Blockly → JavaScript → Minecraft</h1>
+<nav><a href="../index.html">Kurs</a><a href="${IDE_URL}">JSMN IDE öffnen</a></nav></div></header>
+<main class="wrap"><article class="lesson">
+<span class="badge">Lektion 6 von 12</span>
+<h1>Zählschleifen mit for</h1>
+<div class="meta"><div><strong>Programmieridee</strong><br>Zählvariable</div>
+<div><strong>Minecraft-Projekt</strong><br>Eine Stufenpyramide</div>
+<div><strong>Lernziel</strong><br>Die Schleifenvariable als Zahl verwenden, die sich bei jeder Runde verändert.</div></div>
+<p><a class="ide-button" href="${IDE_URL}">JSMN IDE öffnen →</a></p>
+<div class="teacher"><strong>Für Lehrkräfte:</strong> Die aktuelle Schleifenvariable in jeder Runde laut mitsprechen: 8, 7, 6, … Dadurch wird die Verbindung zwischen Schleife und Gebäude sichtbar.</div>
+<h2>So sieht der Blockly-Bauplan aus</h2>
+<div class="block-stack"><div class="block function">function <span class="slot">pyramide</span></div>
+<div class="block loop indent">for <span class="slot">i</span> from <span class="slot">8</span> to <span class="slot">1</span> by <span class="slot">-1</span></div>
+<div class="block build indent2">box <span class="slot">Sandstone</span> W <span class="slot">i</span> H <span class="slot">1</span> D <span class="slot">i</span></div>
+<div class="block move indent2">up <span class="slot">1</span></div>
+<div class="block loop indent">end for</div>
+<div class="block function">end function</div>
+<div class="block preview">preview function <span class="slot">pyramide</span></div></div>
+<p class="small">Die Darstellung hier ist eine schematische Lernhilfe. In der IDE werden die echten Blockly-Blöcke aus der Werkzeugkiste verwendet.</p>
+<h2>Schritt für Schritt</h2><ol class="check"><li>Starte mit `i = 8`.</li><li>Lass `i` bis 1 herunterzählen.</li><li>Verwende `i` für Breite und Tiefe.</li><li>Bewege die Drohne nach jeder Ebene um 1 nach oben.</li></ol>
+<h2>Was Blockly daraus als JavaScript macht</h2>
+<pre><code>function pyramide() {
+  for (var i = 8; i &gt;= 1; i--) {
+    drone.box(&quot;SANDSTONE&quot;,i,1,i);
+    drone.up(1);
+  }
+};
+pyramide();</code></pre>
+<div class="tip"><strong>JavaScript-Brücke:</strong> Vergleicht die Blöcke mit dem Code. Welche Zeile gehört zu welchem Block?</div>
+<div class="challenge"><strong>Challenge:</strong><p>Baue eine Treppe oder einen Turm, dessen Etagen bei jeder Wiederholung größer oder kleiner werden.</p></div>
+<div class="warning"><strong>Typische Stolperstellen</strong><ul><li>Bei einer schrumpfenden Schleife muss die Schrittweite negativ sein.</li><li>Die Variable muss an den Zahleneingang eines Blocks angeschlossen werden können.</li></ul></div>
+<nav class="nav"><a href="lektion-05.html">← Vorherige Lektion</a><a href="lektion-07.html">Nächste Lektion →</a></nav>
+</article></main>
+<footer><div class="wrap">Kurs für die JSMN Blockly IDE / webscriptcraft – relative Pfade, keine externen Kurs-Abhängigkeiten.</div></footer>
+</body></html>

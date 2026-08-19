@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitel 11: Algorithmen für ein Stadtviertel – JavaScript in Minecraft</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap brand">
+    <h1>JavaScript in Minecraft</h1>
+    <nav>
+      <a href="../index.html">Kursübersicht</a>
+      <a href="../index.html#lehrkraft">Für Lehrkräfte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="chapter">
+    <span class="badge">Kapitel 11 von 12</span>
+    <h1>Algorithmen für ein Stadtviertel</h1>
+
+    <div class="lesson-meta">
+      <div><strong>JavaScript</strong><br>Planung, Zerlegung, Wiederverwendung</div>
+      <div><strong>Minecraft-Projekt</strong><br>Wohngebiet</div>
+      <div><strong>Lernziel</strong><br>Die Kinder zerlegen ein größeres Problem in wiederverwendbare Bausteine.</div>
+    </div>
+
+    <p>Jetzt kombinieren wir Funktionen, Parameter, Schleifen, Bewegung und Checkpoints zu einem ganzen Viertel.</p>
+
+    <div class="teacher"><strong>Für Lehrkräfte:</strong> Erst die Aufgabe zeigen, dann das Problem gemeinsam besprechen und danach das neue JavaScript-Konzept einführen. So entsteht die Syntax aus einem sichtbaren Bauproblem.</div>
+
+    <h2>Startcode</h2>
+    <pre><code>function haus(breite, hoehe, tiefe, material) {
+    drone.box0(material, breite, hoehe, tiefe);
+    drone.up(hoehe).box(&quot;STONE_BRICKS&quot;, breite, 1, tiefe);
+    drone.down(hoehe);
+}
+
+drone.chkpt(&quot;stadt&quot;);
+
+for (var i = 0; i &lt; 5; i++) {
+    haus(7, 4, 7, &quot;OAK_PLANKS&quot;);
+    drone.right(10);
+}
+
+drone.move(&quot;stadt&quot;).fwd(15);
+
+for (var i = 0; i &lt; 5; i++) {
+    haus(7, 6, 7, &quot;WHITE_CONCRETE&quot;);
+    drone.right(10);
+}</code></pre>
+
+    <h2>Schritt für Schritt</h2>
+    <h3>1. Stadtplan zeichnen</h3><p>Skizziere auf Papier Straßen und Gebäude.</p>
+<h3>2. Funktionen sammeln</h3><p>Lege Funktionen für Haus, Laterne und Baum an.</p>
+<h3>3. Reihen bauen</h3><p>Erzeuge zwei Häuserreihen und eine Straße dazwischen.</p>
+
+    <div class="challenge">
+      <strong>Challenge:</strong>
+      <p>Programmiere ein Wohngebiet mit mindestens 10 Häusern, einer Straße, Laternen und einem kleinen Park.</p>
+    </div>
+
+    <h2>Musterlösung</h2>
+    <p class="small">Die Musterlösung ist nur eine mögliche Lösung. Andere funktionierende Lösungen sind ausdrücklich erwünscht.</p>
+    <pre><code>function haus(material) {
+    drone.box0(material, 7, 4, 7);
+    drone.up(4).box(&quot;STONE_BRICKS&quot;, 7, 1, 7);
+    drone.down(4);
+}
+
+function laterne() {
+    drone.box(&quot;OAK_LOG&quot;, 1, 4, 1);
+    drone.up(4).box(&quot;SEA_LANTERN&quot;);
+    drone.down(4);
+}
+
+drone.chkpt(&quot;start&quot;);
+
+for (var i = 0; i &lt; 5; i++) {
+    haus(&quot;OAK_PLANKS&quot;);
+    drone.right(10);
+}
+
+drone.move(&quot;start&quot;).fwd(12);
+drone.box(&quot;STONE&quot;, 47, 1, 5);
+
+drone.move(&quot;start&quot;).fwd(18);
+for (var i = 0; i &lt; 5; i++) {
+    haus(&quot;BIRCH_PLANKS&quot;);
+    drone.right(10);
+}
+
+drone.move(&quot;start&quot;).fwd(6);
+for (var i = 0; i &lt; 8; i++) {
+    laterne();
+    drone.right(6);
+}</code></pre>
+
+    <div class="mistake">
+      <strong>Typische Fehler</strong>
+      <ul><li>Große Projekte zuerst in kleine Funktionen zerlegen.</li><li>Nach jedem Teilprojekt testen.</li><li>Bei verschobenen Gebäuden Checkpoints statt komplizierter Rückwärtsbewegungen verwenden.</li></ul>
+    </div>
+
+    <nav class="chapter-nav">
+      <a href="kapitel-10.html">← Vorheriges Kapitel</a>
+      <a href="kapitel-12.html">Nächstes Kapitel →</a>
+    </nav>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kursmaterial für JSMN / script4kids. Alle Seiten verwenden relative Pfade.
+  </div>
+</footer>
+</body>
+</html>

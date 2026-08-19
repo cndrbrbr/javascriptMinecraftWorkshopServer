@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitel 10: Checkpoints für komplexe Bauwerke – JavaScript in Minecraft</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap brand">
+    <h1>JavaScript in Minecraft</h1>
+    <nav>
+      <a href="../index.html">Kursübersicht</a>
+      <a href="../index.html#lehrkraft">Für Lehrkräfte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="chapter">
+    <span class="badge">Kapitel 10 von 12</span>
+    <h1>Checkpoints für komplexe Bauwerke</h1>
+
+    <div class="lesson-meta">
+      <div><strong>JavaScript</strong><br>Zustand speichern, Position wiederherstellen</div>
+      <div><strong>Minecraft-Projekt</strong><br>Villa mit mehreren Teilen</div>
+      <div><strong>Lernziel</strong><br>Die Kinder lernen, bei komplexen Bauwerken von einem bekannten Ausgangspunkt weiterzubauen.</div>
+    </div>
+
+    <p>`chkpt()` ist ein Lesezeichen für den Drone. `move()` bringt ihn dorthin zurück.</p>
+
+    <div class="teacher"><strong>Für Lehrkräfte:</strong> Erst die Aufgabe zeigen, dann das Problem gemeinsam besprechen und danach das neue JavaScript-Konzept einführen. So entsteht die Syntax aus einem sichtbaren Bauproblem.</div>
+
+    <h2>Startcode</h2>
+    <pre><code>drone.chkpt(&quot;start&quot;);
+
+drone.box(&quot;STONE_BRICKS&quot;, 3, 10, 3);
+
+drone.move(&quot;start&quot;).right(6);
+drone.box(&quot;STONE_BRICKS&quot;, 3, 10, 3);
+
+drone.move(&quot;start&quot;).fwd(6);
+drone.box(&quot;STONE_BRICKS&quot;, 3, 10, 3);</code></pre>
+
+    <h2>Schritt für Schritt</h2>
+    <h3>1. Ausgangspunkt speichern</h3><p>Baue drei verschiedene Objekte vom selben Startpunkt aus.</p>
+<h3>2. Mehrere Checkpoints</h3><p>Speichere zusätzlich einen Punkt namens `garten`.</p>
+<h3>3. Gebäudeteile</h3><p>Baue Haupthaus, Turm und Garten voneinander getrennt.</p>
+
+    <div class="challenge">
+      <strong>Challenge:</strong>
+      <p>Baue eine Villa mit Haupthaus, zwei Türmen und einem Garten. Verwende mindestens zwei verschiedene Checkpoints.</p>
+    </div>
+
+    <h2>Musterlösung</h2>
+    <p class="small">Die Musterlösung ist nur eine mögliche Lösung. Andere funktionierende Lösungen sind ausdrücklich erwünscht.</p>
+    <pre><code>drone.chkpt(&quot;haus&quot;);
+
+drone.box0(&quot;WHITE_CONCRETE&quot;, 12, 5, 10);
+drone.up(5).box(&quot;QUARTZ_BLOCK&quot;, 12, 1, 10);
+
+drone.move(&quot;haus&quot;).left(4);
+drone.box(&quot;STONE_BRICKS&quot;, 3, 9, 3);
+
+drone.move(&quot;haus&quot;).right(13);
+drone.box(&quot;STONE_BRICKS&quot;, 3, 9, 3);
+
+drone.move(&quot;haus&quot;).fwd(13);
+drone.chkpt(&quot;garten&quot;);
+drone.box(&quot;GRASS_BLOCK&quot;, 12, 1, 8);
+
+drone.move(&quot;garten&quot;).right(5).up(1);
+drone.box(&quot;OAK_LOG&quot;, 1, 4, 1).up(4).sphere(&quot;OAK_LEAVES&quot;, 2);</code></pre>
+
+    <div class="mistake">
+      <strong>Typische Fehler</strong>
+      <ul><li>Checkpoint-Namen sind Text und brauchen Anführungszeichen.</li><li>`move()` stellt auch die Blickrichtung wieder her.</li><li>Gleiche Checkpoint-Namen überschreiben frühere Positionen.</li></ul>
+    </div>
+
+    <nav class="chapter-nav">
+      <a href="kapitel-09.html">← Vorheriges Kapitel</a>
+      <a href="kapitel-11.html">Nächstes Kapitel →</a>
+    </nav>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kursmaterial für JSMN / script4kids. Alle Seiten verwenden relative Pfade.
+  </div>
+</footer>
+</body>
+</html>

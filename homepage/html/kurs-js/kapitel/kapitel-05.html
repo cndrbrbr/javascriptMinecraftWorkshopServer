@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitel 5: Mit Schleifen in die Höhe – JavaScript in Minecraft</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap brand">
+    <h1>JavaScript in Minecraft</h1>
+    <nav>
+      <a href="../index.html">Kursübersicht</a>
+      <a href="../index.html#lehrkraft">Für Lehrkräfte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="chapter">
+    <span class="badge">Kapitel 5 von 12</span>
+    <h1>Mit Schleifen in die Höhe</h1>
+
+    <div class="lesson-meta">
+      <div><strong>JavaScript</strong><br>Schleifen + Variablen</div>
+      <div><strong>Minecraft-Projekt</strong><br>Hochhaus</div>
+      <div><strong>Lernziel</strong><br>Variablen und Schleifen werden kombiniert, um parametrische Gebäude zu erzeugen.</div>
+    </div>
+
+    <p>Ein Hochhaus besteht aus vielen ähnlichen Stockwerken – ideal für eine Schleife.</p>
+
+    <div class="teacher"><strong>Für Lehrkräfte:</strong> Erst die Aufgabe zeigen, dann das Problem gemeinsam besprechen und danach das neue JavaScript-Konzept einführen. So entsteht die Syntax aus einem sichtbaren Bauproblem.</div>
+
+    <h2>Startcode</h2>
+    <pre><code>var stockwerke = 12;
+
+for (var i = 0; i &lt; stockwerke; i++) {
+    drone.box0(&quot;GLASS&quot;, 9, 3, 9);
+    drone.up(3);
+}</code></pre>
+
+    <h2>Schritt für Schritt</h2>
+    <h3>1. Höhe steuern</h3><p>Ändere nur die Variable `stockwerke`.</p>
+<h3>2. Stockwerkshöhe</h3><p>Speichere auch die Höhe eines Stockwerks in einer Variablen.</p>
+<h3>3. Dach</h3><p>Baue nach der Schleife ein Dach.</p>
+
+    <div class="challenge">
+      <strong>Challenge:</strong>
+      <p>Baue ein Hochhaus mit 15 Stockwerken und einem Dach aus QUARTZ_BLOCK. Jedes Stockwerk soll 3 Blöcke hoch sein.</p>
+    </div>
+
+    <h2>Musterlösung</h2>
+    <p class="small">Die Musterlösung ist nur eine mögliche Lösung. Andere funktionierende Lösungen sind ausdrücklich erwünscht.</p>
+    <pre><code>var stockwerke = 15;
+var stockwerkHoehe = 3;
+var breite = 9;
+
+for (var i = 0; i &lt; stockwerke; i++) {
+    drone.box0(&quot;GLASS&quot;, breite, stockwerkHoehe, breite);
+    drone.up(stockwerkHoehe);
+}
+
+drone.box(&quot;QUARTZ_BLOCK&quot;, breite, 1, breite);</code></pre>
+
+    <div class="mistake">
+      <strong>Typische Fehler</strong>
+      <ul><li>Wenn `drone.up(...)` fehlt, landen alle Stockwerke übereinander.</li><li>Achte darauf, dass Dachbreite und Gebäudebreite zusammenpassen.</li><li>Große Werte können sehr große Bauwerke erzeugen – langsam steigern.</li></ul>
+    </div>
+
+    <nav class="chapter-nav">
+      <a href="kapitel-04.html">← Vorheriges Kapitel</a>
+      <a href="kapitel-06.html">Nächstes Kapitel →</a>
+    </nav>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kursmaterial für JSMN / script4kids. Alle Seiten verwenden relative Pfade.
+  </div>
+</footer>
+</body>
+</html>

@@ -9,7 +9,7 @@ Ein vollständiger, selbst enthaltener Server-Stack zum Lehren von JavaScript-Pr
 | **caddy** | HTTPS-Reverse-Proxy, holt TLS-Zertifikat automatisch von Let's Encrypt |
 | **spigot** | Spigot 1.21.11 mit [script4kids](https://github.com/cndrbrbr/script4kids)-, [geomaptools](https://github.com/cndrbrbr/geomaptools)- und [PrometheusExporter](https://github.com/sladkoff/minecraft-prometheus-exporter)-Plugin |
 | **webscriptcraft** | [Web-IDE](https://github.com/cndrbrbr/webscriptcraft) zum Schreiben und Visualisieren von Skripten |
-| **homepage** | Workshop-Homepage, ausgeliefert per nginx |
+| **homepage** | Workshop-Homepage sowie Blockly- und JavaScript-Kurs, ausgeliefert per nginx |
 
 ---
 
@@ -110,6 +110,9 @@ Alle Einstellungen in `docker-compose.yml` unter `environment` — kein Image-Re
 | `IDE_URL` | `https://javascript.meckminecraft.de` | Link zur Web-IDE auf der Homepage |
 | `UPLOAD_URL` | `https://upload.meckminecraft.de` | Link zur Upload-Seite auf der Homepage |
 | `MC_ADDRESS` | `meckminecraft.de` | Minecraft-Serveradresse auf der Homepage |
+
+`kurs/` und `kurs-js/` werden von `homepage` selbst ausgeliefert und per relativem Link
+verlinkt — keine eigene URL-Variable nötig.
 | `MC_LEVELNAME` | `world` | Name der Welt |
 | `MC_MAXPLAYERS` | `30` | Maximale Spielerzahl |
 | `MC_PORT` | `25565` | Minecraft-Port |
@@ -227,7 +230,9 @@ spigot/ (Volume: minecraft_data)
 webscriptcraft/
   Dockerfile                    nginx mit Web-IDE
 homepage/
-  Dockerfile                    nginx mit Workshop-Homepage
+  Dockerfile                    nginx mit Workshop-Homepage, Blockly- und JS-Kurs
   entrypoint.sh                 Setzt Links per envsubst beim Container-Start
   html/index.html               Homepage-Inhalt
+  html/kurs/                    Blockly-Kurs (12 Lektionen), IDE-Link per envsubst
+  html/kurs-js/                 JavaScript-Kurs (12 Kapitel)
 ```

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lektion 1: Die IDE kennenlernen – mein erster Block</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<header><div class="wrap top"><h1>Blockly → JavaScript → Minecraft</h1>
+<nav><a href="../index.html">Kurs</a><a href="${IDE_URL}">JSMN IDE öffnen</a></nav></div></header>
+<main class="wrap"><article class="lesson">
+<span class="badge">Lektion 1 von 12</span>
+<h1>Die IDE kennenlernen – mein erster Block</h1>
+<div class="meta"><div><strong>Programmieridee</strong><br>Reihenfolge von Befehlen</div>
+<div><strong>Minecraft-Projekt</strong><br>Ein Minecraft-Podest</div>
+<div><strong>Lernziel</strong><br>Blockly-Blöcke zusammenstecken, 3D-Vorschau benutzen und das erste Programm als JavaScript herunterladen.</div></div>
+<p><a class="ide-button" href="${IDE_URL}">JSMN IDE öffnen →</a></p>
+<div class="teacher"><strong>Für Lehrkräfte:</strong> Noch keine Schleifen oder Variablen erklären. Wichtig ist nur: Die Blöcke werden von oben nach unten ausgeführt und erzeugen JavaScript.</div>
+<h2>So sieht der Blockly-Bauplan aus</h2>
+<div class="block-stack"><div class="block function">function <span class="slot">podest</span></div>
+<div class="block build indent">box <span class="slot">Gold</span> <span class="slot">5</span> <span class="slot">1</span> <span class="slot">5</span></div>
+<div class="block function">end function</div>
+<div class="block preview">preview function <span class="slot">podest</span></div></div>
+<p class="small">Die Darstellung hier ist eine schematische Lernhilfe. In der IDE werden die echten Blockly-Blöcke aus der Werkzeugkiste verwendet.</p>
+<h2>Schritt für Schritt</h2><ol class="check"><li>Öffne die JSMN IDE über den grünen Button.</li><li>Ziehe `function` in den Arbeitsbereich und nenne sie `podest`.</li><li>Hänge einen `box`-Block an und wähle Gold, 5 × 1 × 5.</li><li>Beende mit `end function` und `preview function podest`.</li><li>Klicke auf **3D Vorschau**.</li></ol>
+<h2>Was Blockly daraus als JavaScript macht</h2>
+<pre><code>function podest() {
+  drone.box(&quot;GOLD_BLOCK&quot;, 5, 1, 5);
+};
+podest();</code></pre>
+<div class="tip"><strong>JavaScript-Brücke:</strong> Vergleicht die Blöcke mit dem Code. Welche Zeile gehört zu welchem Block?</div>
+<div class="challenge"><strong>Challenge:</strong><p>Ändere Material und Größe so, dass dein ganz persönlicher Startplatz entsteht.</p></div>
+<div class="warning"><strong>Typische Stolperstellen</strong><ul><li>Der Name in `preview function` muss zum Funktionsnamen passen.</li><li>Ohne `preview function` weiß die 3D-Vorschau nicht, welche Funktion sie starten soll.</li></ul></div>
+<nav class="nav"><a href="../index.html">← Kursübersicht</a><a href="lektion-02.html">Nächste Lektion →</a></nav>
+</article></main>
+<footer><div class="wrap">Kurs für die JSMN Blockly IDE / webscriptcraft – relative Pfade, keine externen Kurs-Abhängigkeiten.</div></footer>
+</body></html>

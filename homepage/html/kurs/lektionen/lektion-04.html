@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lektion 4: Wiederholungen mit repeat</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<header><div class="wrap top"><h1>Blockly → JavaScript → Minecraft</h1>
+<nav><a href="../index.html">Kurs</a><a href="${IDE_URL}">JSMN IDE öffnen</a></nav></div></header>
+<main class="wrap"><article class="lesson">
+<span class="badge">Lektion 4 von 12</span>
+<h1>Wiederholungen mit repeat</h1>
+<div class="meta"><div><strong>Programmieridee</strong><br>Schleifen</div>
+<div><strong>Minecraft-Projekt</strong><br>Eine Reihe Straßenlaternen</div>
+<div><strong>Lernziel</strong><br>Wiederholte Blockfolgen durch eine Schleife ersetzen.</div></div>
+<p><a class="ide-button" href="${IDE_URL}">JSMN IDE öffnen →</a></p>
+<div class="teacher"><strong>Für Lehrkräfte:</strong> Das Problem vor dem Fachbegriff stellen: „Müssen wir dieselben fünf Blöcke wirklich zwanzigmal zusammenklicken?“</div>
+<h2>So sieht der Blockly-Bauplan aus</h2>
+<div class="block-stack"><div class="block function">function <span class="slot">laternen</span></div>
+<div class="block loop indent">repeat <span class="slot">10</span> times</div>
+<div class="block build indent2">box <span class="slot">Iron</span> <span class="slot">1</span> <span class="slot">4</span> <span class="slot">1</span></div>
+<div class="block move indent2">up <span class="slot">4</span></div>
+<div class="block build indent2">box <span class="slot">Glowstone</span> <span class="slot">1</span> <span class="slot">1</span> <span class="slot">1</span></div>
+<div class="block move indent2">down <span class="slot">4</span></div>
+<div class="block move indent2">fwd <span class="slot">5</span></div>
+<div class="block loop indent">end repeat</div>
+<div class="block function">end function</div>
+<div class="block preview">preview function <span class="slot">laternen</span></div></div>
+<p class="small">Die Darstellung hier ist eine schematische Lernhilfe. In der IDE werden die echten Blockly-Blöcke aus der Werkzeugkiste verwendet.</p>
+<h2>Schritt für Schritt</h2><ol class="check"><li>Baue zunächst zwei Laternen ohne Schleife.</li><li>Markiere die Befehle, die sich wiederholen.</li><li>Ersetze sie durch `repeat 10 times`.</li><li>Ändere nur die Wiederholungszahl und beobachte die Wirkung.</li></ol>
+<h2>Was Blockly daraus als JavaScript macht</h2>
+<pre><code>function laternen() {
+  for (var count = 0; count &lt; 10; count++) {
+    drone.box(&quot;IRON_BLOCK&quot;,1,4,1);
+    drone.up(4);
+    drone.box(&quot;GLOWSTONE&quot;,1,1,1);
+    drone.down(4);
+    drone.fwd(5);
+  }
+};
+laternen();</code></pre>
+<div class="tip"><strong>JavaScript-Brücke:</strong> Vergleicht die Blöcke mit dem Code. Welche Zeile gehört zu welchem Block?</div>
+<div class="challenge"><strong>Challenge:</strong><p>Baue 20 Laternen mit 6 Blöcken Abstand.</p></div>
+<div class="warning"><strong>Typische Stolperstellen</strong><ul><li>Die Bewegung zur nächsten Laterne muss innerhalb der Schleife liegen.</li><li>Nach der Lampe muss die Drohne wieder auf Ausgangshöhe zurück.</li></ul></div>
+<nav class="nav"><a href="lektion-03.html">← Vorherige Lektion</a><a href="lektion-05.html">Nächste Lektion →</a></nav>
+</article></main>
+<footer><div class="wrap">Kurs für die JSMN Blockly IDE / webscriptcraft – relative Pfade, keine externen Kurs-Abhängigkeiten.</div></footer>
+</body></html>

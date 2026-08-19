@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lektion 11: Mehrere Modelle kombinieren</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<header><div class="wrap top"><h1>Blockly → JavaScript → Minecraft</h1>
+<nav><a href="../index.html">Kurs</a><a href="${IDE_URL}">JSMN IDE öffnen</a></nav></div></header>
+<main class="wrap"><article class="lesson">
+<span class="badge">Lektion 11 von 12</span>
+<h1>Mehrere Modelle kombinieren</h1>
+<div class="meta"><div><strong>Programmieridee</strong><br>Modularität, Speichern und Hinzuladen</div>
+<div><strong>Minecraft-Projekt</strong><br>Ein kleines Stadtviertel</div>
+<div><strong>Lernziel</strong><br>Mehrere getrennte Blockly-Modelle speichern, laden und zu einem Gesamtprojekt kombinieren.</div></div>
+<p><a class="ide-button" href="${IDE_URL}">JSMN IDE öffnen →</a></p>
+<div class="teacher"><strong>Für Lehrkräfte:</strong> Das ist eine gute Teamarbeits-Einheit: Kinder können Module getrennt entwickeln und später zusammenfügen.</div>
+<h2>So sieht der Blockly-Bauplan aus</h2>
+<div class="block-stack"><div class="block function">haus.json</div>
+<div class="block function">+ baum.json</div>
+<div class="block function">+ laterne.json</div>
+<div class="block preview">→ 3D Vorschau</div></div>
+<p class="small">Die Darstellung hier ist eine schematische Lernhilfe. In der IDE werden die echten Blockly-Blöcke aus der Werkzeugkiste verwendet.</p>
+<h2>Schritt für Schritt</h2><ol class="check"><li>Speichere ein Haus als Blockly-Datei.</li><li>Erstelle und speichere getrennt einen Baum.</li><li>Erstelle und speichere eine Laterne.</li><li>Lade ein Modell normal und die anderen mit **XML hinzuladen**.</li><li>Teste alle Modelle gemeinsam in der 3D-Vorschau.</li></ol>
+<h2>Was Blockly daraus als JavaScript macht</h2>
+<pre><code>// Die IDE kann mehrere gespeicherte Blockly-Modelle hinzuladen.
+// Wichtig: eindeutige Funktionsnamen verwenden.
+function haus(){ /* ... */ }
+function baum(){ /* ... */ }
+function laterne(){ /* ... */ }</code></pre>
+<div class="tip"><strong>JavaScript-Brücke:</strong> Vergleicht die Blöcke mit dem Code. Welche Zeile gehört zu welchem Block?</div>
+<div class="challenge"><strong>Challenge:</strong><p>Erstelle mit einem Partner drei unabhängige Bauobjekte und kombiniert sie anschließend.</p></div>
+<div class="warning"><strong>Typische Stolperstellen</strong><ul><li>Funktionen dürfen beim Zusammenführen nicht gleich heißen.</li><li>`XML laden` ersetzt den Workspace; `XML hinzuladen` ergänzt ihn.</li></ul></div>
+<nav class="nav"><a href="lektion-10.html">← Vorherige Lektion</a><a href="lektion-12.html">Nächste Lektion →</a></nav>
+</article></main>
+<footer><div class="wrap">Kurs für die JSMN Blockly IDE / webscriptcraft – relative Pfade, keine externen Kurs-Abhängigkeiten.</div></footer>
+</body></html>

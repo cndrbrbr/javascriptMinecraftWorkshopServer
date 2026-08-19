@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitel 7: Funktionen mit Parametern – JavaScript in Minecraft</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap brand">
+    <h1>JavaScript in Minecraft</h1>
+    <nav>
+      <a href="../index.html">Kursübersicht</a>
+      <a href="../index.html#lehrkraft">Für Lehrkräfte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="chapter">
+    <span class="badge">Kapitel 7 von 12</span>
+    <h1>Funktionen mit Parametern</h1>
+
+    <div class="lesson-meta">
+      <div><strong>JavaScript</strong><br>Parameter, flexible Funktionen</div>
+      <div><strong>Minecraft-Projekt</strong><br>Verschiedene Häuser</div>
+      <div><strong>Lernziel</strong><br>Eine Funktion wird so erweitert, dass Größe und Material beim Aufruf bestimmt werden können.</div>
+    </div>
+
+    <p>Eine gute Häuserfabrik kann kleine, große, hohe und verschiedenfarbige Häuser bauen.</p>
+
+    <div class="teacher"><strong>Für Lehrkräfte:</strong> Erst die Aufgabe zeigen, dann das Problem gemeinsam besprechen und danach das neue JavaScript-Konzept einführen. So entsteht die Syntax aus einem sichtbaren Bauproblem.</div>
+
+    <h2>Startcode</h2>
+    <pre><code>function haus(breite, hoehe, tiefe, material) {
+    drone.box0(material, breite, hoehe, tiefe);
+    drone.up(hoehe);
+    drone.box(&quot;STONE_BRICKS&quot;, breite, 1, tiefe);
+    drone.down(hoehe);
+}
+
+haus(5, 3, 5, &quot;OAK_PLANKS&quot;);
+drone.right(8);
+haus(9, 5, 7, &quot;BIRCH_PLANKS&quot;);</code></pre>
+
+    <h2>Schritt für Schritt</h2>
+    <h3>1. Parameter verstehen</h3><p>Ändere nur die Werte beim Funktionsaufruf.</p>
+<h3>2. Dachmaterial</h3><p>Füge einen fünften Parameter für das Dach hinzu.</p>
+<h3>3. Stadtbild</h3><p>Baue eine Straße mit bewusst unterschiedlichen Häusern.</p>
+
+    <div class="challenge">
+      <strong>Challenge:</strong>
+      <p>Erweitere `haus()` um einen Parameter `dach` und baue drei verschiedene Häuser.</p>
+    </div>
+
+    <h2>Musterlösung</h2>
+    <p class="small">Die Musterlösung ist nur eine mögliche Lösung. Andere funktionierende Lösungen sind ausdrücklich erwünscht.</p>
+    <pre><code>function haus(breite, hoehe, tiefe, material, dach) {
+    drone.box0(material, breite, hoehe, tiefe);
+    drone.up(hoehe);
+    drone.box(dach, breite, 1, tiefe);
+    drone.down(hoehe);
+}
+
+haus(5, 3, 5, &quot;OAK_PLANKS&quot;, &quot;STONE_BRICKS&quot;);
+drone.right(8);
+haus(7, 4, 7, &quot;BIRCH_PLANKS&quot;, &quot;BRICKS&quot;);
+drone.right(10);
+haus(9, 6, 8, &quot;WHITE_CONCRETE&quot;, &quot;QUARTZ_BLOCK&quot;);</code></pre>
+
+    <div class="mistake">
+      <strong>Typische Fehler</strong>
+      <ul><li>Die Reihenfolge der Parameter beim Aufruf muss zur Funktionsdefinition passen.</li><li>Textparameter wie Materialnamen brauchen Anführungszeichen.</li><li>Zu kleine Abstände lassen Gebäude ineinander wachsen.</li></ul>
+    </div>
+
+    <nav class="chapter-nav">
+      <a href="kapitel-06.html">← Vorheriges Kapitel</a>
+      <a href="kapitel-08.html">Nächstes Kapitel →</a>
+    </nav>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kursmaterial für JSMN / script4kids. Alle Seiten verwenden relative Pfade.
+  </div>
+</footer>
+</body>
+</html>

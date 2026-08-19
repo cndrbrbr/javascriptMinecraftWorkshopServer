@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitel 2: Variablen – unser Bauplan – JavaScript in Minecraft</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap brand">
+    <h1>JavaScript in Minecraft</h1>
+    <nav>
+      <a href="../index.html">Kursübersicht</a>
+      <a href="../index.html#lehrkraft">Für Lehrkräfte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="chapter">
+    <span class="badge">Kapitel 2 von 12</span>
+    <h1>Variablen – unser Bauplan</h1>
+
+    <div class="lesson-meta">
+      <div><strong>JavaScript</strong><br>Variablen, Zahlen, Wiederverwendung</div>
+      <div><strong>Minecraft-Projekt</strong><br>Ein einfaches Haus</div>
+      <div><strong>Lernziel</strong><br>Die Kinder speichern Werte in Variablen und verändern damit ein ganzes Bauwerk an einer Stelle.</div>
+    </div>
+
+    <p>Wir wollen ein Haus bauen, dessen Größe leicht verändert werden kann.</p>
+
+    <div class="teacher"><strong>Für Lehrkräfte:</strong> Erst die Aufgabe zeigen, dann das Problem gemeinsam besprechen und danach das neue JavaScript-Konzept einführen. So entsteht die Syntax aus einem sichtbaren Bauproblem.</div>
+
+    <h2>Startcode</h2>
+    <pre><code>var breite = 7;
+var hoehe = 4;
+var tiefe = 9;
+
+drone.box0(&quot;OAK_PLANKS&quot;, breite, hoehe, tiefe);
+drone.up(hoehe);
+drone.box(&quot;STONE_BRICKS&quot;, breite, 1, tiefe);</code></pre>
+
+    <h2>Schritt für Schritt</h2>
+    <h3>1. Größen ändern</h3><p>Verändere nur `breite`, `hoehe` und `tiefe`.</p>
+<h3>2. Material ändern</h3><p>Lege zusätzlich `var wand = &quot;OAK_PLANKS&quot;;` an und verwende die Variable.</p>
+<h3>3. Nachricht ausgeben</h3><p>Gib nach dem Bau eine Nachricht mit den Maßen aus.</p>
+
+    <div class="challenge">
+      <strong>Challenge:</strong>
+      <p>Baue drei Varianten desselben Hauses: klein, breit und hoch. Ändere dafür jeweils nur die Variablen.</p>
+    </div>
+
+    <h2>Musterlösung</h2>
+    <p class="small">Die Musterlösung ist nur eine mögliche Lösung. Andere funktionierende Lösungen sind ausdrücklich erwünscht.</p>
+    <pre><code>var breite = 10;
+var hoehe = 6;
+var tiefe = 7;
+var wand = &quot;BIRCH_PLANKS&quot;;
+
+drone.box0(wand, breite, hoehe, tiefe);
+drone.up(hoehe);
+drone.box(&quot;STONE_BRICKS&quot;, breite, 1, tiefe);
+player.sendMessage(&quot;Haus fertig: &quot; + breite + &quot; x &quot; + hoehe + &quot; x &quot; + tiefe);</code></pre>
+
+    <div class="mistake">
+      <strong>Typische Fehler</strong>
+      <ul><li>Variablennamen dürfen keine Leerzeichen enthalten.</li><li>Textwerte brauchen Anführungszeichen, Zahlen nicht.</li><li>`var breite = 7;` legt die Variable an; später reicht `breite = 10;`.</li></ul>
+    </div>
+
+    <nav class="chapter-nav">
+      <a href="kapitel-01.html">← Vorheriges Kapitel</a>
+      <a href="kapitel-03.html">Nächstes Kapitel →</a>
+    </nav>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kursmaterial für JSMN / script4kids. Alle Seiten verwenden relative Pfade.
+  </div>
+</footer>
+</body>
+</html>

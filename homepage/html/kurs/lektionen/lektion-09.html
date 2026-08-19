@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lektion 9: Logik: Programme treffen Entscheidungen</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<header><div class="wrap top"><h1>Blockly → JavaScript → Minecraft</h1>
+<nav><a href="../index.html">Kurs</a><a href="${IDE_URL}">JSMN IDE öffnen</a></nav></div></header>
+<main class="wrap"><article class="lesson">
+<span class="badge">Lektion 9 von 12</span>
+<h1>Logik: Programme treffen Entscheidungen</h1>
+<div class="meta"><div><strong>Programmieridee</strong><br>if / else und Vergleiche</div>
+<div><strong>Minecraft-Projekt</strong><br>Farbmuster-Turm</div>
+<div><strong>Lernziel</strong><br>Je nach Schleifenwert unterschiedliche Baublöcke ausführen.</div></div>
+<p><a class="ide-button" href="${IDE_URL}">JSMN IDE öffnen →</a></p>
+<div class="teacher"><strong>Für Lehrkräfte:</strong> Falls die Standard-Blockly-Logik ungewohnt ist, zuerst nur `if/else` mit einer einfachen Zahl demonstrieren und erst danach `%` verwenden.</div>
+<h2>So sieht der Blockly-Bauplan aus</h2>
+<div class="block-stack"><div class="block function">function <span class="slot">musterturm</span></div>
+<div class="block loop indent">for <span class="slot">i</span> from <span class="slot">1</span> to <span class="slot">12</span> by <span class="slot">1</span></div>
+<div class="block logic indent2">if <span class="slot">i mod 2 = 0</span></div>
+<div class="block build indent2">box <span class="slot">White Wool</span> <span class="slot">5</span> <span class="slot">1</span> <span class="slot">5</span></div>
+<div class="block logic indent2">else</div>
+<div class="block build indent2">box <span class="slot">Blue Wool</span> <span class="slot">5</span> <span class="slot">1</span> <span class="slot">5</span></div>
+<div class="block move indent2">up <span class="slot">1</span></div>
+<div class="block logic indent">end if / for</div>
+<div class="block function">end function</div>
+<div class="block preview">preview function <span class="slot">musterturm</span></div></div>
+<p class="small">Die Darstellung hier ist eine schematische Lernhilfe. In der IDE werden die echten Blockly-Blöcke aus der Werkzeugkiste verwendet.</p>
+<h2>Schritt für Schritt</h2><ol class="check"><li>Erzeuge eine `for`-Schleife mit 12 Ebenen.</li><li>Prüfe, ob `i` gerade ist.</li><li>Baue bei geraden Ebenen weiß, sonst blau.</li><li>Bewege die Drohne in jeder Runde nach oben.</li></ol>
+<h2>Was Blockly daraus als JavaScript macht</h2>
+<pre><code>function musterturm() {
+  for (var i=1;i&lt;=12;i++) {
+    if (i % 2 === 0) {
+      drone.box(&quot;WHITE_WOOL&quot;,5,1,5);
+    } else {
+      drone.box(&quot;BLUE_WOOL&quot;,5,1,5);
+    }
+    drone.up(1);
+  }
+}
+musterturm();</code></pre>
+<div class="tip"><strong>JavaScript-Brücke:</strong> Vergleicht die Blöcke mit dem Code. Welche Zeile gehört zu welchem Block?</div>
+<div class="challenge"><strong>Challenge:</strong><p>Erfinde ein Muster mit drei Farben, z. B. jedes dritte Stockwerk Gold.</p></div>
+<div class="warning"><strong>Typische Stolperstellen</strong><ul><li>Die `up`-Bewegung gehört nach die Entscheidung, aber noch in die Schleife.</li><li>Bei Bedingungen darauf achten, ob die IDE einen Zahlen- oder Wahrheitswert erwartet.</li></ul></div>
+<nav class="nav"><a href="lektion-08.html">← Vorherige Lektion</a><a href="lektion-10.html">Nächste Lektion →</a></nav>
+</article></main>
+<footer><div class="wrap">Kurs für die JSMN Blockly IDE / webscriptcraft – relative Pfade, keine externen Kurs-Abhängigkeiten.</div></footer>
+</body></html>

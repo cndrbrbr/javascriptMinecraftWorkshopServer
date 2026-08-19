@@ -14,6 +14,4 @@ SERVER_DOMAIN="$DOMAIN" \
   IDE_URL="https://javascript.$DOMAIN/ide.html" \
   UPLOAD_URL="https://upload.$DOMAIN" \
   MC_ADDRESS="$DOMAIN" \
-  KURS_BLOCKLY_URL="https://javascript.$DOMAIN/kurs/index.html" \
-  KURS_JS_URL="https://javascript.$DOMAIN/kurs-js/index.html" \
   docker compose --profile production up -d --build

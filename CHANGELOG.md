@@ -1,5 +1,37 @@
 # Changelog
 
+## 2026-08-19
+
+### Moved the Blockly-Kurs and JavaScript-Kurs from `webscriptcraft` into `homepage`
+
+The two courses (`kurs/`, `kurs-js/`) had been built inside the `webscriptcraft`
+repo alongside the IDE, so `KURS_BLOCKLY_URL`/`KURS_JS_URL` pointed across to
+the IDE subdomain (`javascript.$DOMAIN/kurs/...`) to reach content that
+belongs to the workshop server, not the IDE. `webscriptcraft` had also grown
+its own redundant landing-hub page (`openb3/index.html`) duplicating
+`homepage`'s job, with an upload link still hardcoded to the old
+`upload.codefield.de` domain.
+
+Moved `kurs/` and `kurs-js/` into `homepage/html/`, so `homepage` is now the
+single owner of both the landing page and the course content; `webscriptcraft`
+is IDE-only again. Course pages that linked to the IDE via relative paths
+(`../ide.html`, `../../ide.html`) now use `${IDE_URL}`, substituted by
+`homepage/entrypoint.sh` at container start — same mechanism `index.html`
+already used.
+
+### Replaced the homepage design with the webscriptcraft hub's card layout
+
+`homepage/html/index.html` is now the dark-theme icon-card grid (IDE / Upload
+/ Blockly-Kurs / JavaScript-Kurs + hero image) that used to live at
+`webscriptcraft`'s root, rather than the old blue/navy design with intro text,
+photo gallery, schedule, and commands table — those sections are gone. The
+Upload card now uses `${UPLOAD_URL}` instead of the hardcoded
+`upload.codefield.de` link the original hub carried; `kurs/`/`kurs-js/` are
+linked with plain relative paths since they're served from this same
+container now, so `KURS_BLOCKLY_URL`/`KURS_JS_URL` were removed from
+`docker-compose.yml`, `docker-compose.local.yml`, `start_production.sh`, and
+`homepage/entrypoint.sh` — nothing referenced them anymore.
+
 ## 2026-04-12
 
 ### Fixed: Script upload page not reachable (`upload.codefield.de`)

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lektion 12: Abschlussprojekt – Unsere Blockly-Stadt</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<header><div class="wrap top"><h1>Blockly → JavaScript → Minecraft</h1>
+<nav><a href="../index.html">Kurs</a><a href="${IDE_URL}">JSMN IDE öffnen</a></nav></div></header>
+<main class="wrap"><article class="lesson">
+<span class="badge">Lektion 12 von 12</span>
+<h1>Abschlussprojekt – Unsere Blockly-Stadt</h1>
+<div class="meta"><div><strong>Programmieridee</strong><br>Planung, Debugging, Präsentation</div>
+<div><strong>Minecraft-Projekt</strong><br>Gemeinsame Minecraft-Stadt</div>
+<div><strong>Lernziel</strong><br>Alle gelernten Blockly- und Programmierkonzepte in einem eigenen Projekt einsetzen.</div></div>
+<p><a class="ide-button" href="${IDE_URL}">JSMN IDE öffnen →</a></p>
+<div class="teacher"><strong>Für Lehrkräfte:</strong> Bewertung besser nach Programmierideen, Lesbarkeit, Teststrategie und Erklärung als nach der Größe oder Schönheit des Gebäudes.</div>
+<h2>So sieht der Blockly-Bauplan aus</h2>
+<div class="block-stack"><div class="block function">function <span class="slot">meinStadtteil</span></div>
+<div class="block var indent">Variablen</div>
+<div class="block loop indent">repeat / for</div>
+<div class="block logic indent">if / else</div>
+<div class="block function indent">call <span class="slot">eigeneFunktion</span> ()</div>
+<div class="block build indent">box / box0 + Bewegung</div>
+<div class="block function">end function</div>
+<div class="block preview">preview function <span class="slot">meinStadtteil</span></div></div>
+<p class="small">Die Darstellung hier ist eine schematische Lernhilfe. In der IDE werden die echten Blockly-Blöcke aus der Werkzeugkiste verwendet.</p>
+<h2>Schritt für Schritt</h2><ol class="check"><li>Plant euren Stadtteil zuerst auf Papier.</li><li>Teilt wiederkehrende Bauobjekte in eigene Funktionen auf.</li><li>Verwendet mindestens eine Schleife und eine Variable.</li><li>Verwendet mindestens eine Entscheidung.</li><li>Prüft jeden Teil in der 3D-Vorschau, bevor ihr ihn nach Minecraft übertragt.</li><li>Präsentiert zum Schluss nicht nur das Bauwerk, sondern auch eure Programmieridee.</li></ol>
+<h2>Was Blockly daraus als JavaScript macht</h2>
+<pre><code>// Beispielhafte Struktur
+var anzahl = 6;
+
+function baum() {
+  drone.box(&quot;IRON_BLOCK&quot;,1,4,1); // Material natürlich frei wählen
+}
+
+function meinStadtteil() {
+  for (var i=0; i&lt;anzahl; i++) {
+    baum();
+    drone.right(4);
+  }
+}
+
+meinStadtteil();</code></pre>
+<div class="tip"><strong>JavaScript-Brücke:</strong> Vergleicht die Blöcke mit dem Code. Welche Zeile gehört zu welchem Block?</div>
+<div class="challenge"><strong>Challenge:</strong><p>Pflicht: mindestens 5 Bauobjekte, eine eigene Hilfsfunktion, eine Schleife, eine Variable und eine if/else-Entscheidung. Bonus: mehrere Modelle im Team zusammenführen.</p></div>
+<div class="warning"><strong>Typische Stolperstellen</strong><ul><li>Große Projekte in kleine, testbare Funktionen zerlegen.</li><li>Erst kleine Werte verwenden; danach die Dimensionen vergrößern.</li><li>Vor dem Download prüfen, ob `preview function` den richtigen Einstiegspunkt nennt.</li></ul></div>
+<nav class="nav"><a href="lektion-11.html">← Vorherige Lektion</a><a href="../index.html">Zur Übersicht →</a></nav>
+</article></main>
+<footer><div class="wrap">Kurs für die JSMN Blockly IDE / webscriptcraft – relative Pfade, keine externen Kurs-Abhängigkeiten.</div></footer>
+</body></html>

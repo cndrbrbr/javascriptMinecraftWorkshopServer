@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitel 4: Schleifen – Arbeit sparen – JavaScript in Minecraft</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap brand">
+    <h1>JavaScript in Minecraft</h1>
+    <nav>
+      <a href="../index.html">Kursübersicht</a>
+      <a href="../index.html#lehrkraft">Für Lehrkräfte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="chapter">
+    <span class="badge">Kapitel 4 von 12</span>
+    <h1>Schleifen – Arbeit sparen</h1>
+
+    <div class="lesson-meta">
+      <div><strong>JavaScript</strong><br>for-Schleifen, Zähler, Wiederholungen</div>
+      <div><strong>Minecraft-Projekt</strong><br>Straßenlaternen</div>
+      <div><strong>Lernziel</strong><br>Die Kinder erkennen Wiederholungen und ersetzen kopierten Code durch eine Schleife.</div>
+    </div>
+
+    <p>Zehn Laternen einzeln zu programmieren wäre langweilig. Eine Schleife wiederholt denselben Bauplan automatisch.</p>
+
+    <div class="teacher"><strong>Für Lehrkräfte:</strong> Erst die Aufgabe zeigen, dann das Problem gemeinsam besprechen und danach das neue JavaScript-Konzept einführen. So entsteht die Syntax aus einem sichtbaren Bauproblem.</div>
+
+    <h2>Startcode</h2>
+    <pre><code>for (var i = 0; i &lt; 10; i++) {
+    drone.box(&quot;OAK_LOG&quot;, 1, 4, 1);
+    drone.up(4);
+    drone.box(&quot;GLOWSTONE&quot;, 1, 1, 1);
+    drone.down(4);
+    drone.fwd(5);
+}</code></pre>
+
+    <h2>Schritt für Schritt</h2>
+    <h3>1. Anzahl ändern</h3><p>Ändere die 10 auf 5, 20 oder 30.</p>
+<h3>2. Abstand ändern</h3><p>Verändere `fwd(5)`.</p>
+<h3>3. Laterne gestalten</h3><p>Verwende andere Materialien oder baue oben zwei Lampen.</p>
+
+    <div class="challenge">
+      <strong>Challenge:</strong>
+      <p>Programmiere 20 Straßenlaternen mit 6 Blöcken Abstand.</p>
+    </div>
+
+    <h2>Musterlösung</h2>
+    <p class="small">Die Musterlösung ist nur eine mögliche Lösung. Andere funktionierende Lösungen sind ausdrücklich erwünscht.</p>
+    <pre><code>for (var i = 0; i &lt; 20; i++) {
+    drone.box(&quot;OAK_LOG&quot;, 1, 4, 1);
+    drone.up(4).box(&quot;SEA_LANTERN&quot;);
+    drone.down(4).fwd(6);
+}</code></pre>
+
+    <div class="mistake">
+      <strong>Typische Fehler</strong>
+      <ul><li>In `for (...)` stehen drei Teile: Start, Bedingung, Veränderung.</li><li>Die geschweiften Klammern markieren, was wiederholt wird.</li><li>Wenn der Drone am Ende jeder Runde nicht weiterbewegt wird, entstehen alle Laternen am selben Ort.</li></ul>
+    </div>
+
+    <nav class="chapter-nav">
+      <a href="kapitel-03.html">← Vorheriges Kapitel</a>
+      <a href="kapitel-05.html">Nächstes Kapitel →</a>
+    </nav>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kursmaterial für JSMN / script4kids. Alle Seiten verwenden relative Pfade.
+  </div>
+</footer>
+</body>
+</html>

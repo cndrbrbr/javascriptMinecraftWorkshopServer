@@ -23,8 +23,6 @@ services:
       IDE_URL: http://${HOST_IP}:8081/ide.html
       UPLOAD_URL: http://${HOST_IP}:8082
       MC_ADDRESS: ${HOST_IP}
-      KURS_BLOCKLY_URL: http://${HOST_IP}:8081/kurs/index.html
-      KURS_JS_URL: http://${HOST_IP}:8081/kurs-js/index.html
 
   webscriptcraft:
     ports:

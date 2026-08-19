@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lektion 3: Vom Quader zum Haus</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<header><div class="wrap top"><h1>Blockly → JavaScript → Minecraft</h1>
+<nav><a href="../index.html">Kurs</a><a href="${IDE_URL}">JSMN IDE öffnen</a></nav></div></header>
+<main class="wrap"><article class="lesson">
+<span class="badge">Lektion 3 von 12</span>
+<h1>Vom Quader zum Haus</h1>
+<div class="meta"><div><strong>Programmieridee</strong><br>Parameter eines Befehls</div>
+<div><strong>Minecraft-Projekt</strong><br>Ein einfaches Haus</div>
+<div><strong>Lernziel</strong><br>Breite, Höhe und Tiefe als veränderbare Parameter eines Blocks verstehen.</div></div>
+<p><a class="ide-button" href="${IDE_URL}">JSMN IDE öffnen →</a></p>
+<div class="teacher"><strong>Für Lehrkräfte:</strong> Hier kann man erstmals ausdrücklich den Begriff **Parameter** einführen: Ein Befehl bleibt gleich, seine Eingaben verändern das Ergebnis.</div>
+<h2>So sieht der Blockly-Bauplan aus</h2>
+<div class="block-stack"><div class="block function">function <span class="slot">haus</span></div>
+<div class="block build indent">box <span class="slot">Dirt</span> <span class="slot">7</span> <span class="slot">1</span> <span class="slot">7</span></div>
+<div class="block move indent">up <span class="slot">1</span></div>
+<div class="block build indent">box0 <span class="slot">Cobblestone</span> W <span class="slot">7</span> H <span class="slot">4</span> D <span class="slot">7</span></div>
+<div class="block move indent">up <span class="slot">4</span></div>
+<div class="block build indent">box <span class="slot">Quartz</span> <span class="slot">7</span> <span class="slot">1</span> <span class="slot">7</span></div>
+<div class="block function">end function</div>
+<div class="block preview">preview function <span class="slot">haus</span></div></div>
+<p class="small">Die Darstellung hier ist eine schematische Lernhilfe. In der IDE werden die echten Blockly-Blöcke aus der Werkzeugkiste verwendet.</p>
+<h2>Schritt für Schritt</h2><ol class="check"><li>Baue einen Boden.</li><li>Bewege die Drohne um 1 nach oben.</li><li>Verwende `box0` für hohle Wände.</li><li>Bewege die Drohne um die Wandhöhe nach oben.</li><li>Baue ein flaches Dach.</li></ol>
+<h2>Was Blockly daraus als JavaScript macht</h2>
+<pre><code>function haus() {
+  drone.box(&quot;DIRT&quot;,7,1,7);
+  drone.up(1);
+  drone.box0(&quot;COBBLESTONE&quot;,7,4,7);
+  drone.up(4);
+  drone.box(&quot;QUARTZ_BLOCK&quot;,7,1,7);
+};
+haus();</code></pre>
+<div class="tip"><strong>JavaScript-Brücke:</strong> Vergleicht die Blöcke mit dem Code. Welche Zeile gehört zu welchem Block?</div>
+<div class="challenge"><strong>Challenge:</strong><p>Erzeuge drei Hausvarianten: klein, breit und hoch. Verändere jeweils nur die Zahlen und Materialien.</p></div>
+<div class="warning"><strong>Typische Stolperstellen</strong><ul><li>Nach dem Boden muss die Drohne nach oben, sonst beginnen Wände im Boden.</li><li>Vor dem Dach muss sie genau um die Wandhöhe nach oben bewegt werden.</li></ul></div>
+<nav class="nav"><a href="lektion-02.html">← Vorherige Lektion</a><a href="lektion-04.html">Nächste Lektion →</a></nav>
+</article></main>
+<footer><div class="wrap">Kurs für die JSMN Blockly IDE / webscriptcraft – relative Pfade, keine externen Kurs-Abhängigkeiten.</div></footer>
+</body></html>

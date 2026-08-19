@@ -2,6 +2,24 @@
 
 ## 2026-08-19
 
+### Fixed: `docker compose build webscriptcraft` could silently serve stale content
+
+**`webscriptcraft/Dockerfile`**
+
+The image is built by `git clone`-ing `cndrbrbr/webscriptcraft` inside a `RUN` step. Docker caches `RUN`
+layers by instruction text, and `git clone --depth=1 <url>` never changes text-wise — so a plain
+`docker compose build webscriptcraft` (the documented update command, no `--no-cache`) can reuse a clone from
+whenever that layer was first built, even after new commits landed on GitHub. Caught this live: after pushing
+the legacy-PHP cleanup, a fresh `docker compose build` + `up -d` still served the old pre-cleanup hub page
+until rebuilt with `--no-cache`.
+
+Added `ADD https://api.github.com/repos/cndrbrbr/webscriptcraft/commits/main /tmp/webscriptcraft-head.json`
+before the clone step. Docker re-fetches `ADD <url>` content on every build and only invalidates the cache
+below it when the fetched body actually changed — so the clone step now re-runs exactly when there's a new
+commit on `main`, and still hits cache otherwise. Verified both directions: a build after this change served
+current content without `--no-cache`, and a second identical build hit cache on both the `ADD` and the clone
+step since nothing upstream had changed.
+
 ### Fixed: documented whitelist hot-reload command doesn't work
 
 **README.md** — Whitelist section

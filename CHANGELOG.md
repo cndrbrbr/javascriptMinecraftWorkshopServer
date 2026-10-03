@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-03 (2)
+
+### Changed: geomaptools 4.36 → 4.37, built for Spigot 26.3
+
+**`spigot/Dockerfile`** — geomaptools now also publishes one release per
+Minecraft version; the image downloads `v4.37-mc26.3`
+(`geomaptools-4.37-mc26.3.jar`, `api-version: 26.3`).
+
+**`spigot/entrypoint.sh`** — also removes older `geomaptools*.jar` from the
+volume, including the previous unversioned `geomaptools.jar`.
+
+---
+
 ## 2026-10-03
 
 ### Changed: Spigot 1.21.11 → 26.3, GraalVM JDK 21 → 25, cavecompass added

@@ -173,11 +173,11 @@ steht als `ARG` oben in `spigot/Dockerfile`:
 |---|---|---|
 | `JSMN_VERSION` | script4kids | `v<version>-mc<MC_VERSION>`, z. B. `v1.1.0-mc26.3` |
 | `CAVECOMPASS_VERSION` | cavecompass | `v<version>-mc<MC_VERSION>`, z. B. `v0.10.1-mc26.3` |
-| `GEOMAPTOOLS_VERSION` | geomaptools | `v<version>` |
+| `GEOMAPTOOLS_VERSION` | geomaptools | `v<version>-mc<MC_VERSION>`, z. B. `v4.37-mc26.3` |
 | `PROMETHEUS_EXPORTER_VERSION` | PrometheusExporter | `v<version>` |
 
-Für ein Update die Version dort hochsetzen und das Image neu bauen. Alte JARs von script4kids und
-cavecompass werden beim Start aus `data/plugins/` entfernt, damit nicht zwei Versionen gleichzeitig laden.
+Für ein Update die Version dort hochsetzen und das Image neu bauen. Alte JARs von script4kids,
+cavecompass und geomaptools werden beim Start aus `data/plugins/` entfernt, damit nicht zwei Versionen gleichzeitig laden.
 
 ```bash
 # Lokal:
@@ -190,8 +190,8 @@ docker compose --profile production build spigot && docker compose --profile pro
 
 ### Minecraft-Version wechseln
 
-`MC_VERSION` in `spigot/Dockerfile` setzen (für script4kids und cavecompass muss es dazu ein passendes
-Release geben). Beim nächsten Start baut der Container die neue Spigot-Version via BuildTools.
+`MC_VERSION` in `spigot/Dockerfile` setzen (für script4kids, cavecompass und geomaptools muss es dazu ein
+passendes Release geben). Beim nächsten Start baut der Container die neue Spigot-Version via BuildTools.
 
 > **Vorher ein Backup der Welt machen!** Minecraft konvertiert die Welt beim ersten Start auf die neue
 > Version — das lässt sich nicht rückgängig machen. Auch die Spieler brauchen dann einen Minecraft-Client

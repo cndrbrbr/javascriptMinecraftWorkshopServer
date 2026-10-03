@@ -15,11 +15,11 @@ FROM debian:trixie-slim
 ARG MC_VERSION=26.3
 
 # Plugin versions (GitHub release tags).
-# script4kids (jsmn) and cavecompass publish one release per Minecraft version,
-# tagged v<version>-mc<MC_VERSION>; geomaptools has one jar for all versions.
+# script4kids (jsmn), cavecompass and geomaptools publish one release per
+# Minecraft version, tagged v<version>-mc<MC_VERSION>.
 ARG JSMN_VERSION=1.1.0
 ARG CAVECOMPASS_VERSION=0.10.1
-ARG GEOMAPTOOLS_VERSION=4.36
+ARG GEOMAPTOOLS_VERSION=4.37
 ARG PROMETHEUS_EXPORTER_VERSION=3.1.2
 
 RUN apt-get update && apt-get install -y git curl tar gzip && rm -rf /var/lib/apt/lists/*
@@ -51,8 +51,8 @@ RUN mkdir -p plugins && cd plugins && \
         "https://github.com/cndrbrbr/script4kids/releases/download/v${JSMN_VERSION}-mc${MC_VERSION}/jsmn-${JSMN_VERSION}-mc${MC_VERSION}.jar" && \
     curl -fsSL -o "CaveCompass-${CAVECOMPASS_VERSION}-mc${MC_VERSION}.jar" \
         "https://github.com/cndrbrbr/cavecompass/releases/download/v${CAVECOMPASS_VERSION}-mc${MC_VERSION}/CaveCompass-${CAVECOMPASS_VERSION}-mc${MC_VERSION}.jar" && \
-    curl -fsSL -o geomaptools.jar \
-        "https://github.com/cndrbrbr/geomaptools/releases/download/v${GEOMAPTOOLS_VERSION}/geomaptools.jar" && \
+    curl -fsSL -o "geomaptools-${GEOMAPTOOLS_VERSION}-mc${MC_VERSION}.jar" \
+        "https://github.com/cndrbrbr/geomaptools/releases/download/v${GEOMAPTOOLS_VERSION}-mc${MC_VERSION}/geomaptools-${GEOMAPTOOLS_VERSION}-mc${MC_VERSION}.jar" && \
     curl -fsSL -o PrometheusExporter.jar \
         "https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v${PROMETHEUS_EXPORTER_VERSION}/minecraft-prometheus-exporter-${PROMETHEUS_EXPORTER_VERSION}.jar"
 COPY prometheus-exporter-config.yml plugins/PrometheusExporter/config.yml

@@ -22,7 +22,7 @@ mkdir -p /server/data/cfg /server/data/plugins /server/data/worlds
 # Remove older versions of the plugins this image manages first: their JAR
 # names contain the version, so a new JAR would otherwise load next to the old
 # one (e.g. jsmn-1.0-SNAPSHOT.jar from before the 26.3 upgrade).
-rm -f /server/data/plugins/jsmn-*.jar /server/data/plugins/CaveCompass-*.jar
+rm -f /server/data/plugins/jsmn-*.jar /server/data/plugins/CaveCompass-*.jar /server/data/plugins/geomaptools*.jar
 cp /server-base/plugins/*.jar /server/data/plugins/
 mkdir -p /server/data/plugins/PrometheusExporter
 cp /server-base/plugins/PrometheusExporter/config.yml /server/data/plugins/PrometheusExporter/config.yml

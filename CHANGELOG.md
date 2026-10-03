@@ -1,5 +1,38 @@
 # Changelog
 
+## 2026-10-03
+
+### Changed: Spigot 1.21.11 → 26.3, GraalVM JDK 21 → 25, cavecompass added
+
+**`spigot/Dockerfile`**
+- `MC_VERSION=26.3` (new ARG), passed to the entrypoint as `SPIGOT_VERSION`.
+- Runtime GraalVM Community JDK `21.0.2` → `25.0.2`. Spigot 26.x needs Java 25.
+- Plugins are no longer compiled in builder stages but downloaded as release
+  JARs, with their versions as ARGs (`JSMN_VERSION`, `CAVECOMPASS_VERSION`,
+  `GEOMAPTOOLS_VERSION`, `PROMETHEUS_EXPORTER_VERSION`). script4kids and
+  cavecompass publish one release per Minecraft version
+  (`v<version>-mc<MC_VERSION>`). The old builder stage would have broken
+  anyway: script4kids' JAR is no longer called `jsmn-1.0-SNAPSHOT.jar`.
+- New plugin: [cavecompass](https://github.com/cndrbrbr/cavecompass).
+
+**`spigot/entrypoint.sh`**
+- `SPIGOT_VERSION` comes from the image instead of being hard-coded.
+- Before copying the plugin JARs to the volume, older `jsmn-*.jar` and
+  `CaveCompass-*.jar` are removed. Their file names contain the version, so the
+  old `jsmn-1.0-SNAPSHOT.jar` on existing volumes would otherwise load next to
+  the new JAR.
+
+**Upgrading an existing server:** back up the world first — it is converted to
+26.3 on first start and cannot be opened by 1.21.11 afterwards. Players need a
+26.3 client.
+
+Tested: image build, and a first start on a volume holding a 1.21.11 world plus
+the old `jsmn-1.0-SNAPSHOT.jar` (Spigot 26.3 built via BuildTools in the
+container, all four plugins enabled, world converted, JavaScript test script
+run on GraalVM 25.0.2).
+
+---
+
 ## 2026-08-19
 
 ### Fixed: `docker compose build webscriptcraft` could silently serve stale content

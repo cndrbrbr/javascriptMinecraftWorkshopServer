@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-SPIGOT_VERSION=1.21.11
+# Set by the Dockerfile (ARG MC_VERSION); fallback for running outside the image
+SPIGOT_VERSION="${SPIGOT_VERSION:-26.3}"
 SPIGOT_JAR="/server/spigot-${SPIGOT_VERSION}.jar"
 
 # ── Build Spigot if not on volume ────────────────────────────
@@ -18,6 +19,10 @@ fi
 mkdir -p /server/data/cfg /server/data/plugins /server/data/worlds
 
 # ── Plugin: always update so image rebuilds take effect ──────
+# Remove older versions of the plugins this image manages first: their JAR
+# names contain the version, so a new JAR would otherwise load next to the old
+# one (e.g. jsmn-1.0-SNAPSHOT.jar from before the 26.3 upgrade).
+rm -f /server/data/plugins/jsmn-*.jar /server/data/plugins/CaveCompass-*.jar
 cp /server-base/plugins/*.jar /server/data/plugins/
 mkdir -p /server/data/plugins/PrometheusExporter
 cp /server-base/plugins/PrometheusExporter/config.yml /server/data/plugins/PrometheusExporter/config.yml

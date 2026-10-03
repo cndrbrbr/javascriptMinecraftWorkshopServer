@@ -1,53 +1,42 @@
 # ============================================================
-# Spigot container — multi-stage build
+# Spigot container
 #
-# Stage 1: Build the script4kids plugin from source
-# Stage 2: Runtime image
+# Plugins are downloaded as release JARs built for MC_VERSION
+# (see the ARGs below — bump a version there to update a plugin).
 #
 # Spigot itself is NOT built during image build.
 # The entrypoint builds it on first start (via BuildTools)
 # and caches the JAR on the persistent volume.
 # Set FORCE_BUILD=true to rebuild even if JAR already exists.
 # ============================================================
-
-# ── Stage 1a: Build script4kids plugin ─────────────────────
-FROM debian:trixie-slim AS plugin-builder
-
-RUN apt-get update && apt-get install -y openjdk-21-jdk git maven && rm -rf /var/lib/apt/lists/*
-
-RUN git clone --depth=1 https://github.com/cndrbrbr/script4kids.git /build
-WORKDIR /build
-RUN mvn clean package -DskipTests -q
-
-# ── Stage 1b: Build geomaptools plugin ──────────────────────
-FROM debian:trixie-slim AS geomaptools-builder
-
-RUN apt-get update && apt-get install -y openjdk-21-jdk git maven && rm -rf /var/lib/apt/lists/*
-
-RUN git clone --depth=1 https://github.com/cndrbrbr/geomaptools.git /build
-WORKDIR /build
-# pom.xml doesn't declare the SpigotMC repo — inject it via settings.xml
-RUN mkdir -p /root/.m2 && printf '<settings><profiles><profile><id>spigot</id><repositories><repository><id>spigot-snapshots</id><url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url></repository></repositories></profile></profiles><activeProfiles><activeProfile>spigot</activeProfile></activeProfiles></settings>' > /root/.m2/settings.xml
-RUN mvn clean package -DskipTests -q
-
-# ── Stage 2: Runtime ────────────────────────────────────────
-# GraalVM JDK is used so the jsmn plugin's shaded Truffle/Polyglot runtime can
-# use JVMCI for optimised JS compilation. Standard OpenJDK lacks JVMCI, which
-# means Truffle falls back to slow interpretation. The jsmn plugin (script4kids)
-# shades org.graalvm.polyglot and the Truffle runtime into its JAR via the
-# maven-shade-plugin, so no additional classpath setup is needed at runtime.
 FROM debian:trixie-slim
+
+# Minecraft/Spigot version. Plugin release JARs below are picked to match it.
+ARG MC_VERSION=26.3
+
+# Plugin versions (GitHub release tags).
+# script4kids (jsmn) and cavecompass publish one release per Minecraft version,
+# tagged v<version>-mc<MC_VERSION>; geomaptools has one jar for all versions.
+ARG JSMN_VERSION=1.1.0
+ARG CAVECOMPASS_VERSION=0.10.1
+ARG GEOMAPTOOLS_VERSION=4.36
+ARG PROMETHEUS_EXPORTER_VERSION=3.1.2
 
 RUN apt-get update && apt-get install -y git curl tar gzip && rm -rf /var/lib/apt/lists/*
 
-# Install GraalVM Community JDK 21 (provides the GraalVM Polyglot/Truffle runtime)
-ARG GRAALVM_VERSION=21.0.2
+# GraalVM Community JDK 25. Spigot 26.x needs Java 25, and the jsmn plugin
+# (script4kids) runs JavaScript via GraalVM Polyglot/Truffle: on a GraalVM JDK
+# Truffle can use JVMCI for optimised JS compilation instead of slow
+# interpretation. The plugin shades the Polyglot/Truffle runtime into its JAR,
+# so no additional classpath setup is needed at runtime.
+ARG GRAALVM_VERSION=25.0.2
 RUN curl -fsSL \
         "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-${GRAALVM_VERSION}/graalvm-community-jdk-${GRAALVM_VERSION}_linux-x64_bin.tar.gz" \
     | tar -xzC /opt/ && \
     mv "$(find /opt -maxdepth 1 -name 'graalvm-community-openjdk-*' -type d)" /opt/graalvm
 ENV JAVA_HOME=/opt/graalvm
 ENV PATH=$JAVA_HOME/bin:$PATH
+ENV SPIGOT_VERSION=${MC_VERSION}
 
 # Pre-download BuildTools so the container doesn't need internet at startup
 RUN mkdir -p /buildtools && \
@@ -57,12 +46,15 @@ RUN mkdir -p /buildtools && \
 WORKDIR /server-base
 
 # Plugin JARs
-COPY --from=plugin-builder /build/target/jsmn-1.0-SNAPSHOT.jar plugins/
-COPY --from=geomaptools-builder /build/target/geomaptools.jar plugins/
-
-# Prometheus Exporter plugin
-RUN curl -fsSL -o plugins/PrometheusExporter.jar \
-        https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v3.1.2/minecraft-prometheus-exporter-3.1.2.jar
+RUN mkdir -p plugins && cd plugins && \
+    curl -fsSL -o "jsmn-${JSMN_VERSION}-mc${MC_VERSION}.jar" \
+        "https://github.com/cndrbrbr/script4kids/releases/download/v${JSMN_VERSION}-mc${MC_VERSION}/jsmn-${JSMN_VERSION}-mc${MC_VERSION}.jar" && \
+    curl -fsSL -o "CaveCompass-${CAVECOMPASS_VERSION}-mc${MC_VERSION}.jar" \
+        "https://github.com/cndrbrbr/cavecompass/releases/download/v${CAVECOMPASS_VERSION}-mc${MC_VERSION}/CaveCompass-${CAVECOMPASS_VERSION}-mc${MC_VERSION}.jar" && \
+    curl -fsSL -o geomaptools.jar \
+        "https://github.com/cndrbrbr/geomaptools/releases/download/v${GEOMAPTOOLS_VERSION}/geomaptools.jar" && \
+    curl -fsSL -o PrometheusExporter.jar \
+        "https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v${PROMETHEUS_EXPORTER_VERSION}/minecraft-prometheus-exporter-${PROMETHEUS_EXPORTER_VERSION}.jar"
 COPY prometheus-exporter-config.yml plugins/PrometheusExporter/config.yml
 
 # Server config

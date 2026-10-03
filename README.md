@@ -7,7 +7,7 @@ Ein vollständiger, selbst enthaltener Server-Stack zum Lehren von JavaScript-Pr
 | Container | Aufgabe |
 |---|---|
 | **caddy** | HTTPS-Reverse-Proxy, holt TLS-Zertifikat automatisch von Let's Encrypt |
-| **spigot** | Spigot 1.21.11 mit [script4kids](https://github.com/cndrbrbr/script4kids)-, [geomaptools](https://github.com/cndrbrbr/geomaptools)- und [PrometheusExporter](https://github.com/sladkoff/minecraft-prometheus-exporter)-Plugin |
+| **spigot** | Spigot 26.3 (GraalVM JDK 25) mit [script4kids](https://github.com/cndrbrbr/script4kids)-, [cavecompass](https://github.com/cndrbrbr/cavecompass)-, [geomaptools](https://github.com/cndrbrbr/geomaptools)- und [PrometheusExporter](https://github.com/sladkoff/minecraft-prometheus-exporter)-Plugin |
 | **webscriptcraft** | [Web-IDE](https://github.com/cndrbrbr/webscriptcraft) zum Schreiben und Visualisieren von Skripten |
 | **homepage** | Workshop-Homepage sowie Blockly- und JavaScript-Kurs, ausgeliefert per nginx |
 
@@ -164,9 +164,20 @@ Weitere Spieler vor dem Workshop hinzufügen:
 
 ## Updates
 
-### Plugins (script4kids / geomaptools) aktualisieren
+### Plugins (script4kids / cavecompass / geomaptools) aktualisieren
 
-Die Plugins werden beim Image-Build aus GitHub geklont und kompiliert. Ein Rebuild des `spigot`-Images zieht automatisch den aktuellen Stand beider Repos.
+Die Plugins werden beim Image-Build als fertige Release-JARs von GitHub geladen. Welche Versionen,
+steht als `ARG` oben in `spigot/Dockerfile`:
+
+| ARG | Plugin | Release-Tag |
+|---|---|---|
+| `JSMN_VERSION` | script4kids | `v<version>-mc<MC_VERSION>`, z. B. `v1.1.0-mc26.3` |
+| `CAVECOMPASS_VERSION` | cavecompass | `v<version>-mc<MC_VERSION>`, z. B. `v0.10.1-mc26.3` |
+| `GEOMAPTOOLS_VERSION` | geomaptools | `v<version>` |
+| `PROMETHEUS_EXPORTER_VERSION` | PrometheusExporter | `v<version>` |
+
+Für ein Update die Version dort hochsetzen und das Image neu bauen. Alte JARs von script4kids und
+cavecompass werden beim Start aus `data/plugins/` entfernt, damit nicht zwei Versionen gleichzeitig laden.
 
 ```bash
 # Lokal:
@@ -176,6 +187,15 @@ sudo docker compose -f docker-compose.yml -f docker-compose.local.yml up -d spig
 # Produktion:
 docker compose --profile production build spigot && docker compose --profile production up -d spigot
 ```
+
+### Minecraft-Version wechseln
+
+`MC_VERSION` in `spigot/Dockerfile` setzen (für script4kids und cavecompass muss es dazu ein passendes
+Release geben). Beim nächsten Start baut der Container die neue Spigot-Version via BuildTools.
+
+> **Vorher ein Backup der Welt machen!** Minecraft konvertiert die Welt beim ersten Start auf die neue
+> Version — das lässt sich nicht rückgängig machen. Auch die Spieler brauchen dann einen Minecraft-Client
+> in genau dieser Version.
 
 ### Web-IDE aktualisieren
 
@@ -240,14 +260,14 @@ docker-compose.local.yml     Lokaler Test: kein Caddy, direkte Ports, HOST_IP
 Caddyfile                       HTTPS-Proxy-Konfiguration
 setup-debian.sh                 OS-Setup für neuen Debian-Server
 spigot/
-  Dockerfile                    Plugin-Build (Maven) + Runtime-Image (JDK + BuildTools)
+  Dockerfile                    Runtime-Image (GraalVM JDK + BuildTools) + Plugin-Release-JARs
   entrypoint.sh                 Start: Spigot bauen (1. Start), Crash-Restart-Loop
   watch_copy.sh                 Hilfsskript: Config-Datei per inotify auf Volume syncen
   server.properties             Minecraft-Serverkonfiguration (beim 1. Start auf Volume kopiert)
   whitelist.json                Whitelist (beim 1. Start auf Volume kopiert)
   eula.txt                      EULA-Akzeptanz
 spigot/ (Volume: minecraft_data)
-  spigot-1.21.11.jar            Beim ersten Start via BuildTools gebaut
+  spigot-26.3.jar               Beim ersten Start via BuildTools gebaut
   data/cfg/                     server.properties, bukkit.yml, spigot.yml, ...
   data/plugins/                 Plugin-JARs und Plugin-Daten
   data/worlds/                  Weltdaten

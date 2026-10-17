@@ -22,7 +22,9 @@ ARG CAVECOMPASS_VERSION=0.10.1
 ARG GEOMAPTOOLS_VERSION=4.37
 ARG PROMETHEUS_EXPORTER_VERSION=3.1.2
 
-RUN apt-get update && apt-get install -y git curl tar gzip && rm -rf /var/lib/apt/lists/*
+# zip is needed by the mineback backup agent, which packs the nightly snapshot
+# with `docker exec <container> zip ...`. Without it every backup fails.
+RUN apt-get update && apt-get install -y git curl tar gzip zip && rm -rf /var/lib/apt/lists/*
 
 # GraalVM Community JDK 25. Spigot 26.x needs Java 25, and the jsmn plugin
 # (script4kids) runs JavaScript via GraalVM Polyglot/Truffle: on a GraalVM JDK

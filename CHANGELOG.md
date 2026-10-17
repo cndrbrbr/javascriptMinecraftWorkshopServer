@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-10-17
+
+### Fixed: nightly backups failed since the Spigot 26.3 image
+
+**`spigot/Dockerfile`** — installs `zip` again. The mineback backup agent packs
+each snapshot with `docker exec <container> zip ...`; the previous image got
+`zip` only indirectly, the rebuilt 26.3 image (2026-10-03) did not, so every
+backup from 2026-10-04 on failed with `zip: command not found`.
+
+---
+
 ## 2026-10-03 (2)
 
 ### Changed: geomaptools 4.36 → 4.37, built for Spigot 26.3
